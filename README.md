@@ -4,7 +4,7 @@
 Coleção de scripts e ferramentas de automação desenvolvidas em Python, com foco em ambiente Linux (Fedora).
 Este repositório serve como laboratório pessoal para testes de Web Scraping, Processamento de Imagens, Manipulação de Áudio, Segurança de Redes e Processos em Background (Daemons). 
 
-### 🤖 /Robos
+### 🤖 /Robos 
 Scripts utilitários e agentes autônomos.
 - **[guru_linux.py](./Robos/guru_linux.py)**: Feat: Adiciona ferramenta Guru Linux para o terminal (2026-01-05)
 - **[sentinela.py](./Robos/sentinela.py)**: New: Adiciona monitor de rede Sentinela (2026-01-05)
