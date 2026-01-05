@@ -11,7 +11,7 @@ Scripts utilitários e agentes autônomos.
 - **[news_sniper.py](./Robos/news_sniper.py)**: Last commit message (2026-01-05)
 - **[news_sniper_world.py](./Robos/news_sniper_world.py)**: Last commit message (2026-01-05)
 - **[robo_vagas.py](./Robos/robo_vagas.py)**: Last commit message (2026-01-05)
-- **[sentinela.py](./Robos/sentinela.py)**: New: Adiciona monitor de rede Sentinela (2026-01-05)
+- **[sentinela.py](./Robos/sentinela.py)**: README (2026-01-05)
 - **[ssl_hunter.py](./Robos/ssl_hunter.py)**: Last commit message (2026-01-05)
 - **[teste_robo.py](./Robos/teste_robo.py)**: Last commit message (2026-01-05)
 
