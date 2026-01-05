@@ -45,4 +45,4 @@ while True:
     
     # O Arquiteto define o ritmo. 
     # Dorme por 60 segundos para não gastar CPU à toa.
-    time.sleep(60)
+    time.sleep(60) 
