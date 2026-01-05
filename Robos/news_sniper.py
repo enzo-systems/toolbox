@@ -1,3 +1,8 @@
+"""
+ROBÔ: SNIPER
+FUNÇÃO: Procura informações específicas em sites específicos.
+STATUS: Ativo e funcional.
+"""
 import requests
 from bs4 import BeautifulSoup
 import json

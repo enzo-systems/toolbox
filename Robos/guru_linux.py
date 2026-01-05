@@ -1,4 +1,9 @@
-# --- Guru Linux: Assistente de Terminal ---
+"""
+ROBÔ: GURU
+FUNÇÃO: Analisa logs e fornece diagnósticos preditivos sobre o status do sistema.
+STATUS: Em desenvolvimento / Alpha.
+"""
+
 import requests
 import sys
 

@@ -1,3 +1,9 @@
+"""
+ROBÔ: SENTINELA
+FUNÇÃO: Monitora a conexão de rede a cada 60 segundos e evita que o log cresça demais.
+STATUS: Operacional com rotação de logs.
+"""
+
 import time
 import socket
 import logging

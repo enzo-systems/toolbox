@@ -1,4 +1,8 @@
-#!/usr/bin/env python3
+"""
+ROBÔ: MULTIMÍDIA
+FUNÇÃO: Processamento automatizado Redimensionamento de Foto).
+STATUS: Testando integração com APIs externas.
+"""
 import sys
 from PIL import Image, ImageOps, ImageDraw
 

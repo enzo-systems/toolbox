@@ -1,3 +1,9 @@
+"""
+ROBÔ: SNIPER
+FUNÇÃO: Procura informações específicas em toda internet.
+STATUS: Ativo e funcional.
+"""
+
 import requests
 import xml.etree.ElementTree as ET
 import json

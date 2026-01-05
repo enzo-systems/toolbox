@@ -1,3 +1,8 @@
+"""
+ROBÔ: SSL HUNTER
+FUNÇÃO: acessa todas as informações de sites específicos.
+STATUS: Ativo e funcional.
+"""
 # --- Playground de Testes ---
 import requests
 

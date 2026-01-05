@@ -1,3 +1,8 @@
+"""
+ROBÔ: SNIPER
+FUNÇÃO: Procura informações vagas de empregos em sites específicos.
+STATUS: Ativo e funcional.
+"""
 # --- Robo Vagas: Web Scraper ---
 import requests
 from bs4 import BeautifulSoup

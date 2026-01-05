@@ -1,3 +1,8 @@
+"""
+ROBÔ: SSL HUNTER
+FUNÇÃO: faz auditoria de segurança em sites específicos.
+STATUS: Ativo e funcional.
+"""
 # --- SSL Hunter: Auditoria de Segurança ---
 import ssl
 import socket
