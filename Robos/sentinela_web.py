@@ -1,3 +1,8 @@
+"""
+ROBÔ: SENTINELA
+FUNÇÃO: Navega na Internet como um agent.
+STATUS: Operacional com rotação de logs.
+"""
 #!/usr/bin/env python3
 import requests
 import logging
