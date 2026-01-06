@@ -9,6 +9,7 @@ Scripts utilitários.
 - **[news_sniper_world.py](news_sniper_world.py)**: Last commit (2026-01-05) | *ROBÔ: SNIPER FUNÇÃO: Procura informações específicas em toda internet. STATUS: Ativo e funcional.*
 - **[robo_vagas.py](robo_vagas.py)**: Last commit (2026-01-05) | *ROBÔ: SNIPER FUNÇÃO: Procura informações vagas de empregos em sites específicos. STATUS: Ativo e funcional.*
 - **[sentinela.py](sentinela.py)**: Last commit (2026-01-05) | *ROBÔ: SENTINELA FUNÇÃO: Monitora a conexão de rede a cada 60 segundos e evita que o log cresça demais. STATUS: Operacional com rotação de logs.*
+- **[sentinela_web.py](sentinela_web.py)**: Novo arquivo (Aguardando commit)
 - **[ssl_hunter.py](ssl_hunter.py)**: Last commit (2026-01-05) | *ROBÔ: SSL HUNTER FUNÇÃO: faz auditoria de segurança em sites específicos. STATUS: Ativo e funcional.*
 - **[teste_robo.py](teste_robo.py)**: Last commit (2026-01-05) | *ROBÔ: SSL HUNTER FUNÇÃO: acessa todas as informações de sites específicos. STATUS: Ativo e funcional.*
-- **[watchdog_sentinela.py](watchdog_sentinela.py)**: Novo arquivo (Aguardando commit) | *ROBÔ: WATCHDOG SENTINELA FUNÇÃO: Vigia o status do serviço Sentinela via systemctl e avisa o Arquiteto se cair. STATUS: Nível 1 - Operador Invisível.*
+- **[watchdog_sentinela.py](watchdog_sentinela.py)**: Last commit (2026-01-05) | *ROBÔ: WATCHDOG SENTINELA FUNÇÃO: Vigia o status do serviço Sentinela via systemctl e avisa o Arquiteto se cair. STATUS: Nível 1 - Operador Invisível.*
