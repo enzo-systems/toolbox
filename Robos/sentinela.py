@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3 
 # --- DOCSTRINGS ---
 """
 NÍVEL 1: Agente de Monitoramento de Infraestrutura

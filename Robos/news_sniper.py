@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3 
 """
 NÍVEL 2: Agente de Extração de Dados
 FUNÇÃO: Coleta notícias de fontes globais via Web Scraping.

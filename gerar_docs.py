@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3 
 # --- DOCSTRINGS ---
 """
 ROBÔ: ARQUITETO DE DOCS (V2.5 - Full Auto)

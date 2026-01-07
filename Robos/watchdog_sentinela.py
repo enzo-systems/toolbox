@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3 
 # --- DOCSTRINGS ---
 """
 NÍVEL 1: Supervisor de Processos (Watchdog)

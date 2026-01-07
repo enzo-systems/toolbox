@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# --- DOCSTRINGS ---
+# --- DOCSTRINGS --- 
 """
 NÍVEL 4: Sintetizador de Voz e Áudio
 FUNÇÃO: Processamento de áudio e clonagem vocal para interfaces homem-máquina.

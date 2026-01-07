@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# --- DOCSTRINGS ---
+# --- DOCSTRINGS --- 
 """
 NÍVEL 3: Processador de Visão Computacional
 FUNÇÃO: Análise, redimensionamento e extração de metadados de arquivos de imagem.
