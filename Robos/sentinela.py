@@ -1,9 +1,9 @@
 """
-Docstring-------------------------------------------------
+Docstring -
 ROBÔ: SENTINELA
 FUNÇÃO: Monitora a conexão de rede a cada 60 segundos e evita que o log cresça demais.
-        Ou seja, Zelador de Infra: Monitora rede e rotaciona logs para não encher o disco.
-STATUS: Operacional com rotação de logs - Nivel 1.
+Ou seja, Zelador de Infra: Monitora rede e rotaciona logs para não encher o disco.
+STATUS: Operacional com rotação de logs - Nivel 1. 
 """
 
 import time
