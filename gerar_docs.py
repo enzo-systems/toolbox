@@ -10,6 +10,18 @@ import os
 import re
 import subprocess 
 
+# --- Configurações de Identidade Sênior ---
+DEFINICOES = {
+    "Robos": "Agentes autônomos e scripts de monitoramento/extração de dados (Nível 2).",
+    "Scripts": "Utilitários de Automação de Infraestrutura e Manutenção de Sistema (Nível 1).",
+    "Config": "Gestor de Parâmetros, Variáveis de Ambiente e Definições Globais (Nível 1).",
+    "Docker": "Orquestrador de Containers e Ambientes Isolados (Nível 1).",
+    "Docs": "Repositório de Documentação Técnica e Manuais do Projeto.",
+    "Logs": "Registro de Atividades, Históricos e Depuração de Processos.",
+    "Imagens": "Módulos de Processamento Visual e Manipulação de Imagens (Nível 3).",
+    "CloneVoz": "Módulos de Processamento de Áudio e Síntese Vocal."
+}
+
 MAPA_MODULOS = {
     "Robos": "### 🤖 /Robos",
     "Scripts": "### 📂 /Scripts",
