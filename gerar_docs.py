@@ -89,6 +89,33 @@ def atualizar_readme_principal():
         f.write(conteudo)
     print("✅ README.md Principal atualizado com definições técnicas.")
 
+# --- Configurações Sênior ---
+TECNOLOGIAS = """
+### 🚀 Tecnologias Utilizadas
+- **Linguagem:** Python 3.x / Bash
+- **OS:** Linux (Fedora / Debian / Ubuntu)
+- **Libs Principais:** - `requests`: Integração com APIs e requisições HTTP.
+    - `BeautifulSoup4`: Extração de dados de HTML (Web Scraping).
+    - `Pillow (PIL)`: Processamento e manipulação de imagens (Nível 3).
+    - `pyOpenSSL`: Auditoria e gestão de certificados SSL.
+    - `logging`: Sistema de rastreabilidade e histórico de eventos.
+    - `socket`: Verificações de baixo nível de conectividade.
+    - `csv/json`: Persistência de dados estruturados.
+- **Conceitos:** Web Scraping, Image Processing, Daemon Processes, Logging, API REST, Persistência de Dados.
+"""
+
+def atualizar_tecnologias(conteudo):
+    """Garante que a seção de Tecnologias esteja atualizada no README Raiz."""
+    header = "### 🚀 Tecnologias Utilizadas"
+    # Busca desde o header até a próxima seção de nível 3 (###) ou o separador (---)
+    pattern = re.compile(rf"{re.escape(header)}.*?(?=\n###|\n---|\Z)", re.DOTALL)
+    
+    if header in conteudo:
+        return pattern.sub(TECNOLOGIAS.strip(), conteudo)
+    else:
+        # Se não existir, insere antes dos módulos
+        return TECNOLOGIAS + "\n---\n" + conteudo
+
 def atualizar_readmes_subpastas():
     for pasta in DEFINICOES.keys():
         if os.path.exists(pasta):
