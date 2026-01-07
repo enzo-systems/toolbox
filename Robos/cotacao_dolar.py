@@ -2,7 +2,7 @@
 Objetivo: Robô que busca a cotação do dólar dentro do site do google
 """
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup 
 
 def pegar_dolar():
     url = "https://www.google.com/search?q=cotacao+dolar"
