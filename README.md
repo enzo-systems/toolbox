@@ -13,20 +13,20 @@ Este repositório é um ecossistema de automação modular desenvolvido para amb
 ### 🤖 /Robos
 Unidade de Agentes Autônomos especializados por nível de complexidade.
 
-- **[career_hunter.py](./Robos/career_hunter.py)**: Aguardando commit | *Docstring - ROBÔ: Web Scraper FUNÇÃO: Procura informações vagas de empregos em sites específicos. Ou seja, Coletor de Dados: Busca oportunidades em sites específicos. STATUS: Ativo e funcional - Nível 2*
-- **[cotacao_dolar.py](./Robos/cotacao_dolar.py)**: Last Config (2026-01-07) | *NÍVEL 2: Agente Financeiro Autônomo FUNÇÃO: Captura cotações em tempo real via API e gera séries históricas estruturadas. Este bot trata Dados e APIs CONCEITOS: Integração de APIs REST, Persistência CSV, Séries Temporais.*
-- **[global_news_sniper.py](./Robos/global_news_sniper.py)**: Aguardando commit | *NÍVEL 2: Agente  FUNÇÃO: Coletor internacional de notícias com suporte a múltiplos idiomas. CONCEITOS:*
-- **[news_sniper.py](./Robos/news_sniper.py)**: Last Config (2026-01-07) | *NÍVEL 2: Agente de Extração de Dados FUNÇÃO: Coleta notícias de fontes globais via Web Scraping. CONCEITOS: BeautifulSoup, requests, persistência em JSON.*
-- **[sentinela.py](./Robos/sentinela.py)**: Last Config (2026-01-07) | *NÍVEL 1: Agente de Monitoramento de Infraestrutura FUNÇÃO: Vigia a integridade do sistema, gerencia conectividade e rotatividade de logs. Este bot é a base, o vigia do sistema CONCEITOS: I/O de Sistema, Gestão de Logs, Daemonize.*
-- **[ssl_hunter.py](./Robos/ssl_hunter.py)**: Last Config (2026-01-07) | *NÍVEL 2: Auditor de Criptografia e Redes FUNÇÃO: Varredura e validação de certificados SSL/TLS em domínios externos. Este bot trata com segurança e rede CONCEITOS: pyOpenSSL, Protocolos de Segurança, Diagnóstico de Rede.*
-- **[system_expert.py](./Robos/system_expert.py)**: Aguardando commit | *NÍVEL 2: Agente  FUNÇÃO: Crawler especializado em monitoramento de portais de emprego. CONCEITOS:*
-- **[watchdog_sentinela.py](./Robos/watchdog_sentinela.py)**: Last Config (2026-01-07) | *NÍVEL 1: Supervisor de Processos (Watchdog) FUNÇÃO: Garante a persistência e reinicialização automática dos agentes do sistema. Este bot trata com Infraestrutura pura. CONCEITOS: Monitoramento de Processos, Resiliência, Systemd.*
-- **[web_monitor.py](./Robos/web_monitor.py)**: Aguardando commit | *NÍVEL 2: Agente  FUNÇÃO: Crawler especializado em monitoramento de portais de emprego. CONCEITOS: Agente de integridade de serviços web e tempo de resposta.*
+- **[career_hunter.py](./Robos/career_hunter.py)**: Last Commit (2026-01-07) | *Docstring - ROBÔ: Web Scraper FUNÇÃO: Procura informações vagas de empregos em sites específicos. Ou seja, Coletor de Dados: Busca oportunidades em sites específicos. STATUS: Ativo e funcional - Nível 2*
+- **[cotacao_dolar.py](./Robos/cotacao_dolar.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente Financeiro Autônomo FUNÇÃO: Captura cotações em tempo real via API e gera séries históricas estruturadas. Este bot trata Dados e APIs CONCEITOS: Integração de APIs REST, Persistência CSV, Séries Temporais.*
+- **[global_news_sniper.py](./Robos/global_news_sniper.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente  FUNÇÃO: Coletor internacional de notícias com suporte a múltiplos idiomas. CONCEITOS:*
+- **[news_sniper.py](./Robos/news_sniper.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente de Extração de Dados FUNÇÃO: Coleta notícias de fontes globais via Web Scraping. CONCEITOS: BeautifulSoup, requests, persistência em JSON.*
+- **[sentinela.py](./Robos/sentinela.py)**: Last Commit (2026-01-07) | *NÍVEL 1: Agente de Monitoramento de Infraestrutura FUNÇÃO: Vigia a integridade do sistema, gerencia conectividade e rotatividade de logs. Este bot é a base, o vigia do sistema CONCEITOS: I/O de Sistema, Gestão de Logs, Daemonize.*
+- **[ssl_hunter.py](./Robos/ssl_hunter.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Auditor de Criptografia e Redes FUNÇÃO: Varredura e validação de certificados SSL/TLS em domínios externos. Este bot trata com segurança e rede CONCEITOS: pyOpenSSL, Protocolos de Segurança, Diagnóstico de Rede.*
+- **[system_expert.py](./Robos/system_expert.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente  FUNÇÃO: Crawler especializado em monitoramento de portais de emprego. CONCEITOS:*
+- **[watchdog_sentinela.py](./Robos/watchdog_sentinela.py)**: Last Commit (2026-01-07) | *NÍVEL 1: Supervisor de Processos (Watchdog) FUNÇÃO: Garante a persistência e reinicialização automática dos agentes do sistema. Este bot trata com Infraestrutura pura. CONCEITOS: Monitoramento de Processos, Resiliência, Systemd.*
+- **[web_monitor.py](./Robos/web_monitor.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente  FUNÇÃO: Crawler especializado em monitoramento de portais de emprego. CONCEITOS: Agente de integridade de serviços web e tempo de resposta.*
 
 ### 📂 /Scripts
 Utilitários de Automação de Infraestrutura e Manutenção de Sistema (Nível 1).
 
-- **[backup_toolbox.sh](./Scripts/backup_toolbox.sh)**: Last Config (2026-01-07) | *NÍVEL 1: Automação de Infraestrutura*
+- **[backup_toolbox.sh](./Scripts/backup_toolbox.sh)**: Last Commit (2026-01-07) | *NÍVEL 1: Automação de Infraestrutura*
 
 ### ⚙️ /Config
 Gestor de Parâmetros, Variáveis de Ambiente e Definições Globais (Nível 1).
@@ -51,12 +51,12 @@ Registro de Atividades, Históricos e Depuração de Processos.
 ### 🖼️ /Imagens
 Módulos de Processamento Visual e Manipulação de Imagens (Nível 3).
 
-- **[image_processor.py](./Imagens/image_processor.py)**: Aguardando commit | *NÍVEL 3: Processador de Visão Computacional FUNÇÃO: Análise, redimensionamento e extração de metadados de arquivos de imagem. CONCEITOS: Pillow, Filtros de Imagem, Manipulação de Matrizes.*
+- **[image_processor.py](./Imagens/image_processor.py)**: Last Commit (2026-01-07) | *NÍVEL 3: Processador de Visão Computacional FUNÇÃO: Análise, redimensionamento e extração de metadados de arquivos de imagem. CONCEITOS: Pillow, Filtros de Imagem, Manipulação de Matrizes.*
 
 ### 🎙️ /CloneVoz
 Módulos de Processamento de Áudio e Síntese Vocal.
 
-- **[voice_synthesizer.py](./CloneVoz/voice_synthesizer.py)**: Aguardando commit | *NÍVEL 4: Sintetizador de Voz e Áudio FUNÇÃO: Processamento de áudio e clonagem vocal para interfaces homem-máquina. CONCEITOS: Processamento de Sinal Digital, Síntese de Voz.*
+- **[voice_synthesizer.py](./CloneVoz/voice_synthesizer.py)**: Last Commit (2026-01-07) | *NÍVEL 4: Sintetizador de Voz e Áudio FUNÇÃO: Processamento de áudio e clonagem vocal para interfaces homem-máquina. CONCEITOS: Processamento de Sinal Digital, Síntese de Voz.*
 
 ---
 ### 🛠️ Stack Tecnológico
