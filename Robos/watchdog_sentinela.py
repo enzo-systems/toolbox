@@ -1,7 +1,8 @@
 """
-ROBÔ: WATCHDOG SENTINELA
+ROBÔ: SENTINELA
 FUNÇÃO: Vigia o status do serviço Sentinela via systemctl e avisa o Arquiteto se cair.
-STATUS: Nível 1 - Operador Invisível.
+        Ou seja, Vigias dos Vigias: Garante que o Sentinela esteja rodando via systemctl
+STATUS: Operador Invisível - Nível 1.
 """
 
 import subprocess
