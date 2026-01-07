@@ -1,8 +1,8 @@
 """
-Docstring-------------------------------------------------
+Docstring -
 ROBÔ: Web Scraper
 FUNÇÃO: acessa todas as informações de sites específicos.
-STATUS: Ativo e funcional - Nível 2
+STATUS: Ativo e funcional - Nível 2 
 """
 # --- Playground de Testes ---
 import requests
