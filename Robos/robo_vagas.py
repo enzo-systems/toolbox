@@ -1,7 +1,9 @@
 """
-ROBÔ: SNIPER
+Docstring-------------------------------------------------
+ROBÔ: Web Scraper
 FUNÇÃO: Procura informações vagas de empregos em sites específicos.
-STATUS: Ativo e funcional.
+        Ou seja, Coletor de Dados: Busca oportunidades em sites específicos.
+STATUS: Ativo e funcional - Nível 2
 """
 # --- Robo Vagas: Web Scraper ---
 import requests
