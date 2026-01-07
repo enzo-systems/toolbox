@@ -4,8 +4,7 @@
 Coleção de scripts e ferramentas de automação desenvolvidas em Python, com foco em ambiente Linux (Fedora).   
 Este repositório serve como laboratório pessoal para testes de Web Scraping, Processamento de Imagens, Manipulação de Áudio, Segurança de Redes e Processos em Background (Daemons). 
 
-### 🤖 /Robos 
-Scripts utilitários e agentes autônomos.
+### 🤖 /Robos
 - **[guru_linux.py](./Robos/guru_linux.py)**: Last commit (2026-01-05) | *ROBÔ: GURU FUNÇÃO: Analisa logs e fornece diagnósticos preditivos sobre o status do sistema. STATUS: Em desenvolvimento / Alpha.*
 - **[memoria_world.json](./Robos/memoria_world.json)**: Last commit message (2026-01-05)
 - **[news_sniper.py](./Robos/news_sniper.py)**: Last commit (2026-01-05) | *ROBÔ: SNIPER FUNÇÃO: Procura informações específicas em sites específicos. STATUS: Ativo e funcional.*
@@ -18,27 +17,25 @@ Scripts utilitários e agentes autônomos.
 - **[watchdog_sentinela.py](./Robos/watchdog_sentinela.py)**: Last commit (2026-01-05) | *ROBÔ: WATCHDOG SENTINELA FUNÇÃO: Vigia o status do serviço Sentinela via systemctl e avisa o Arquiteto se cair. STATUS: Nível 1 - Operador Invisível.*
 
 ### 🖼️ /Imagens
-Ferramentas de manipulação de imagem e processamento visual.
 - **[corta_foto.py](./Imagens/corta_foto.py)**: Last commit (2026-01-05) | *ROBÔ: MULTIMÍDIA FUNÇÃO: Processamento automatizado Redimensionamento de Foto). STATUS: Testando integração com APIs externas.*
 
 ### 🎙️ /CloneVoz
-Ferramentas de manipulação clonagem de voz.
 - **[robo_enzo.py](./CloneVoz/robo_enzo.py)**: Last commit (2026-01-05) | *ROBÔ: MULTIMÍDIA FUNÇÃO: Transforma um roteiro escrito em áudio baseado na voz sintética do roteirista. STATUS: Testando integração com APIs externas.*
 
 ### 📂 /Scripts
-- **[backup_toolbox.sh](./Scripts/backup_toolbox.sh)**: message commit (2026-01-06) | *==============================================================================*
+- **[backup_toolbox.sh](./Scripts/backup_toolbox.sh)**: message commit (2026-01-06) | *ARQUITETURA AUTÔNOMA - NÍVEL 1*
 
 ### ⚙️ /Config
-- *Pasta estruturada (aguardando arquivos de sistema).*
+- *Pasta inicializada.*
 
 ### 🐳 /Docker
-- *Pasta estruturada (aguardando arquivos de sistema).*
+- *Pasta inicializada.*
 
 ### 📚 /Docs
-- *Pasta estruturada (aguardando arquivos de sistema).*
+- *Pasta inicializada.*
 
 ### 📝 /Logs
-- *Pasta estruturada (aguardando arquivos de sistema).*
+- *Pasta inicializada.*
 
 ### 🚀 /Tecnologias
 - **Linguagem:** Python 3.x
