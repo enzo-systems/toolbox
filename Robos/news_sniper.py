@@ -1,15 +1,15 @@
 """
-Docstring-------------------------------------------------
+Docstring -
 ROBÔ: Web Scraping
 FUNÇÃO: Procura informações específicas em sites específicos.
-        Ou seja, Coletor de Dados: Raspagem de notícias.
+Ou seja, Coletor de Dados: Raspagem de notícias.
 STATUS: Ativo e funcional - Nível 2
 """
 import requests
 from bs4 import BeautifulSoup
 import json
 import os
-from datetime import datetime
+from datetime import datetime 
 
 # --- CONFIGURAÇÃO DO ARQUITETO ---
 # Onde vamos caçar?
