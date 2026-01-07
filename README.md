@@ -13,7 +13,7 @@ Este repositório é um ecossistema de automação modular desenvolvido para amb
 ### 🤖 /Robos
 Unidade de Agentes Autônomos especializados por nível de complexidade.
 
-- **[career_hunter.py](./Robos/career_hunter.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente de Monitoramento de Mercado FUNÇÃO: Rastreia e filtra oportunidades de carreira em portais especializados. CONCEITOS: Web Crawling, BeautifulSoup4, Automação de Busca.*
+- **[career_hunter.py](./Robos/career_hunter.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente de Monitoramento de Mercado FUNÇÃO: Rastreia e filtra oportunidades de carreira em portais especializados. CONCEITOS: Web Crawling, BeautifulSoup4, Automação de Busca, Persistência de Dados.*
 - **[cotacao_dolar.py](./Robos/cotacao_dolar.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente Financeiro Autônomo FUNÇÃO: Captura cotações em tempo real via API e gera séries históricas. CONCEITOS: Integração de APIs REST, Configuração Centralizada, Persistência CSV.*
 - **[global_news_sniper.py](./Robos/global_news_sniper.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente de Inteligência de Dados FUNÇÃO: Coleta e processa notícias internacionais via RSS (Feedparser). CONCEITOS: RSS Parsing, Normalização de Dados, Persistência Estruturada.*
 - **[news_sniper.py](./Robos/news_sniper.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente de Extração de Dados FUNÇÃO: Coleta notícias de fontes globais via Web Scraping. CONCEITOS: BeautifulSoup, requests, persistência em JSON.*
@@ -31,7 +31,7 @@ Utilitários de Automação de Infraestrutura e Manutenção de Sistema (Nível 
 ### ⚙️ /Config
 Gestor de Parâmetros, Variáveis de Ambiente e Definições Globais (Nível 1).
 
-- **[settings.py](./Config/settings.py)**: Aguardando commit | *NÍVEL 1: Gestor de Ambiente e Caminhos FUNÇÃO: Centraliza a inteligência de diretórios e parâmetros globais do sistema. CONCEITOS: Abstração de Caminhos, Configuração Centralizada.*
+- **[settings.py](./Config/settings.py)**: Last Commit (2026-01-07) | *NÍVEL 1: Gestor de Ambiente e Caminhos FUNÇÃO: Centraliza a inteligência de diretórios e parâmetros globais do sistema. CONCEITOS: Abstração de Caminhos, Configuração Centralizada.*
 
 ### 🐳 /Docker
 Orquestrador de Containers e Ambientes Isolados (Nível 1).
@@ -51,7 +51,7 @@ Registro de Atividades, Históricos e Depuração de Processos.
 ### 🖼️ /Imagens
 Módulos de Processamento Visual e Manipulação de Imagens (Nível 3).
 
-- **[vision_processor.py](./Imagens/vision_processor.py)**: Aguardando commit | *NÍVEL 3: Processador de Visão Computacional FUNÇÃO: Análise, redimensionamento e extração de metadados de imagens. CONCEITOS: Pillow, Filtros de Imagem, Manipulação de Matrizes.*
+- **[vision_processor.py](./Imagens/vision_processor.py)**: Last Commit (2026-01-07) | *NÍVEL 3: Processador de Visão Computacional FUNÇÃO: Análise, redimensionamento e extração de metadados de imagens. CONCEITOS: Pillow, Filtros de Imagem, Manipulação de Matrizes.*
 
 ### 🎙️ /CloneVoz
 Módulos de Processamento de Áudio e Síntese Vocal.
