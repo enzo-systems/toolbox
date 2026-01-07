@@ -29,7 +29,7 @@ Utilitários de Automação de Infraestrutura e Manutenção de Sistema (Nível 
 - **[backup_toolbox.sh](./Scripts/backup_toolbox.sh)**: Last Commit (2026-01-07) | *NÍVEL 1: Automação de Infraestrutura*
 
 ### ⚙️ /Config
-Gestor de Parâmetros, Variáveis de Ambiente e Definições Globais (Nível 1).
+Gestor de Parâmetros, Caminhos (Settings) e Variáveis de Ambiente (Nível 1).
 
 - **[settings.py](./Config/settings.py)**: Last Commit (2026-01-07) | *NÍVEL 1: Gestor de Ambiente e Caminhos FUNÇÃO: Centraliza a inteligência de diretórios e parâmetros globais do sistema. CONCEITOS: Abstração de Caminhos, Configuração Centralizada.*
 
@@ -57,6 +57,13 @@ Módulos de Processamento Visual e Manipulação de Imagens (Nível 3).
 Módulos de Processamento de Áudio e Síntese Vocal.
 
 - **[voice_synthesizer.py](./CloneVoz/voice_synthesizer.py)**: Last Commit (2026-01-07) | *NÍVEL 4: Sintetizador de Inteligência Auditiva FUNÇÃO: Processamento de áudio e síntese vocal para interfaces. CONCEITOS: DSP (Digital Signal Processing), TTS (Text-to-Speech), Waveform.*
+
+### 📊 /Data
+Repositório de Dados Estruturados (JSON/CSV) gerados pelos robôs (Persistência).
+
+- **[memoria_world.json](./Data/memoria_world.json)**: Last Commit (2026-01-07)
+- **[vagas_encontradas.json](./Data/vagas_encontradas.json)**: Last Commit (2026-01-07)
+- **[web_monitor_results.json](./Data/web_monitor_results.json)**: Aguardando commit
 
 ---
 ### 🛠️ Stack Tecnológico

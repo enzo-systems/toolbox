@@ -1,0 +1,10 @@
+[
+    {
+        "timestamp": "2026-01-07 15:35:55",
+        "url": "https://pt.wikipedia.org/wiki/Python",
+        "status": 200,
+        "latencia_ms": 807.23,
+        "bytes": 330582,
+        "sucesso": true
+    }
+]

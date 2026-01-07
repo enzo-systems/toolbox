@@ -24,16 +24,17 @@ Este repositório é um ecossistema de automação modular desenvolvido para amb
 ---
 """
 
-# --- 2. DEFINIÇÕES TÉCNICAS ---
+# --- 2. DEFINIÇÕES TÉCNICAS (Atualizado com a 9ª Pasta) ---
 DEFINICOES = {
     "Robos": "Unidade de Agentes Autônomos especializados por nível de complexidade.",
     "Scripts": "Utilitários de Automação de Infraestrutura e Manutenção de Sistema (Nível 1).",
-    "Config": "Gestor de Parâmetros, Variáveis de Ambiente e Definições Globais (Nível 1).",
+    "Config": "Gestor de Parâmetros, Caminhos (Settings) e Variáveis de Ambiente (Nível 1).",
     "Docker": "Orquestrador de Containers e Ambientes Isolados (Nível 1).",
     "Docs": "Repositório de Documentação Técnica e Manuais do Projeto.",
     "Logs": "Registro de Atividades, Históricos e Depuração de Processos.",
     "Imagens": "Módulos de Processamento Visual e Manipulação de Imagens (Nível 3).",
-    "CloneVoz": "Módulos de Processamento de Áudio e Síntese Vocal."
+    "CloneVoz": "Módulos de Processamento de Áudio e Síntese Vocal.",
+    "Data": "Repositório de Dados Estruturados (JSON/CSV) gerados pelos robôs (Persistência)."
 }
 
 MAPA_MODULOS = {
@@ -44,7 +45,8 @@ MAPA_MODULOS = {
     "Docs": "### 📚 /Docs",
     "Logs": "### 📝 /Logs",
     "Imagens": "### 🖼️ /Imagens",
-    "CloneVoz": "### 🎙️ /CloneVoz"
+    "CloneVoz": "### 🎙️ /CloneVoz",
+    "Data": "### 📊 /Data"
 }
 
 STACK_TECNOLOGICO = """
