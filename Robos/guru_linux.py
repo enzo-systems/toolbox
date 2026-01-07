@@ -1,9 +1,9 @@
 """
-Docstring-------------------------------------------------
+Docstring -
 ROBÔ: GURU
 FUNÇÃO: Analisa logs e fornece diagnósticos preditivos sobre o status do sistema.
-        Ou seja, Diagnóstico: Analisador de logs do sistema (Alpha).
-STATUS: Em desenvolvimento / Alpha - Nível 1 
+Ou seja, Diagnóstico: Analisador de logs do sistema (Alpha).
+STATUS: Em desenvolvimento / Alpha - Nível 1  
 """
 
 import requests
