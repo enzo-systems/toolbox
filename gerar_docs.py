@@ -48,20 +48,24 @@ def get_git_info(filepath):
     except: return "Erro Git"
 
 def gerar_lista_arquivos(pasta):
+    """Gera lista Markdown para QUALQUER pasta, identificando o nível e tipo."""
     linhas = []
     if os.path.exists(pasta):
-        extensoes = ('.py', '.sh', '.json')
-        # Pega os arquivos da pasta
-        arquivos = sorted([f for f in os.listdir(pasta) if f.endswith(extensoes)])
+        # Agora aceitamos .py, .sh e até arquivos de config como .yml ou .json
+        extensoes = ('.py', '.sh', '.json', '.yml', '.yaml')
+        arquivos = sorted([f for f in os.listdir(pasta) if f.endswith(extensoes) and f != 'README.md'])
         
         for arq in arquivos:
             caminho = os.path.join(pasta, arq)
-            # SÓ ADICIONA SE O ARQUIVO EXISTIR DE VERDADE NO DISCO
-            if os.path.exists(caminho): 
-                git_info = get_git_info(caminho)
-                linhas.append(f"- **[{arq}](./{pasta}/{arq})**: {git_info}{extrair_docstring(caminho)}")
+            git_info = get_git_info(caminho)
+            descricao = extrair_docstring(caminho)
+            
+            # Identificação Automática de Tipo
+            tipo = "🐍 Python" if arq.endswith('.py') else "🐚 Shell" if arq.endswith('.sh') else "⚙️ Config"
+            
+            linhas.append(f"- **[{arq}](./{pasta}/{arq})** ({tipo}): {git_info}{descricao}")
     
-    return linhas if linhas else ["- *Pasta inicializada.*"]
+    return linhas if linhas else ["- *Pasta organizada (aguardando novos módulos).*"]
 
 def main():
     if not os.path.exists('README.md'): return
