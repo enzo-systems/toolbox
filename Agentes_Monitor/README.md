@@ -1,6 +1,6 @@
 # 📁 Módulo: Agentes_Monitor
 
-> Monitoramento de sistema, rede e hardware.
+> Monitoramento de integridade web e diagnóstico de hardware/OS.
 
 ## 🧰 Estrutura e Ferramentas
 - 🐍 **[sentinela.py](./sentinela.py)** (2026-01-08) | *NÍVEL 2: Sentinela de Infraestrutura FUNÇÃO: Vigia a conectividade e gerencia a rotatividade de logs do sistema. CONCEITOS: I/O de Sistema, RotatingFileHandler, Daemonize Simulation.*

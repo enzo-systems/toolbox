@@ -3,7 +3,7 @@
 ORQUESTRADOR: main.py
 FUNÇÃO: Gerador de Documentação Viva (Living Documentation).
 DESCRIÇÃO: Varre a estrutura do projeto e atualiza todos os README.md automaticamente.
-STATUS: Operacional - Modo Bibliotecário (Com suporte a pastas de Output)
+STATUS: Operacional - Modo Bibliotecário Sênior
 """
 
 import os
@@ -12,39 +12,51 @@ import subprocess
 from pathlib import Path
 
 # --- CONFIGURAÇÕES DE IGNORAR ---
-# Apenas lixo de sistema e controle de versão. Pastas de output agora SÃO PERMITIDAS.
+# Apenas lixo de sistema e controle de versão. Pastas de output SÃO PERMITIDAS.
 DIRS_IGNORADOS = {'.venv', '__pycache__', '.git', '.idea', '.vscode'}
 
 # --- 1. MANIFESTO DO PROJETO ---
 MANIFESTO = """# 🛠️ ToolBox - Ecossistema de Agentes Autônomos
 
-### 📂 Visão Geral
-Este repositório é uma **Caixa de Ferramentas Modular**. Cada pasta contém agentes especializados que funcionam de forma independente.
-Use este README como um **Índice Dinâmico** para encontrar a ferramenta certa para sua tarefa.
+### 📂 Visão Geral e Arquitetura
+Este repositório opera através de **Agentes Especializados** e uma infraestrutura de dados organizada por tipos e domínios.
+
+* **Agentes de Dados:** Inteligência de busca, scraping e coleta de dados.
+* **Agentes de Visao:** Processamento de imagem, higienização e privacidade.
+* **Agentes de Voz:** Síntese vocal (TTS/XTTS) e inteligência auditiva.
+* **Infraestrutura:** Gestão de logs, configurações e persistência de dados.
 
 ---
 """
 
-# --- 2. STACK TECNOLÓGICO ---
+# --- 2. STACK TECNOLÓGICO DETALHADO (RESTAURADO) ---
 STACK_TECNOLOGICO = """
 ---
-### 🛠️ Engenharia e Stack
-- **Linguagem:** Python 3.10+
-- **Documentação:** Gerada automaticamente via `main.py`.
-- **Estrutura:**
-    - `Agentes_*`: Módulos funcionais independentes.
-    - `Data`: Armazenamento de inputs (matéria-prima) e outputs (resultados).
+### 🛠️ Stack Tecnológico e Engenharia
+- **Core Executivo:** Python 3.10+ & Bash Scripting (Automação de Infraestrutura).
+- **Domínios de Inteligência:**
+    - `Coqui TTS (XTTS v2)`: Clonagem de voz Neural e Síntese de Fala de alta fidelidade.
+    - `Pillow (PIL)`: Pipeline de processamento de imagem e manipulação de metadados.
+    - `Requests` & `BeautifulSoup4`: Engenharia de extração e consumo de dados.
+- **Resiliência e Monitoramento:**
+    - `Logging (RotatingFileHandler)`: Gestão de logs cíclicos com controle de volumetria.
+    - `Subprocess`: Orquestração de comandos do sistema operacional (Fedora/Linux).
+- **Arquitetura de Dados:**
+    - **Persistência Estruturada:** Armazenamento em CSV (Séries) e JSON (Metadados).
+    - **Estratégia de I/O:** Separação rigorosa entre `input_` (Matéria-prima) e `output_` (Processados).
+    - **Living Documentation:** Mapeamento dinâmico via `main.py` (incluindo estruturas vazias via `.gitkeep`).
 """
 
-# --- 3. DEFINIÇÕES ---
+# --- 3. DEFINIÇÕES POR DOMÍNIO ---
 DEFINICOES = {
-    "Agentes_Dados": "Coleta de dados, Scraping e Processamento de RSS.",
-    "Agentes_Visao": "Computer Vision: Análise, filtros e manipulação de imagens.",
-    "Agentes_Voz": "Síntese de Voz (TTS) e Clonagem de Áudio (XTTS).",
-    "Agentes_Monitor": "Monitoramento de sistema, rede e hardware.",
-    "Scripts": "Automação de infraestrutura e manutenção do OS.",
-    "Data": "Repositório de Arquivos (Inputs e Outputs).",
-    "Logs": "Histórico de execução e auditoria."
+    "Agentes_Dados": "Coleta e processamento de notícias e oportunidades (Scraping/RSS).",
+    "Agentes_Visao": "Processamento de imagens, filtros e remoção de metadados.",
+    "Agentes_Voz": "Conversão de texto em fala (TTS/XTTS) e inteligência auditiva.",
+    "Agentes_Monitor": "Monitoramento de integridade web e diagnóstico de hardware/OS.",
+    "Scripts": "Utilitários de manutenção, backup e automação de infraestrutura.",
+    "Config": "Cérebro do projeto (Settings, caminhos absolutos e variáveis).",
+    "Data": "Repositório central organizado por subpastas (csv, json, images, audio).",
+    "Logs": "Registro de atividades, histórico de erros e auditoria."
 }
 
 MAPA_MODULOS = {
@@ -57,7 +69,7 @@ MAPA_MODULOS = {
     "Logs": "### 📝 /Logs"
 }
 
-# --- 4. FUNÇÕES DE EXTRAÇÃO ---
+# --- 4. LÓGICA DE EXTRAÇÃO E AUDITORIA ---
 
 def extrair_docstring(filepath):
     """Lê o cabeçalho do arquivo para explicar o que ele faz."""
@@ -107,10 +119,10 @@ def gerar_lista_arquivos(pasta_raiz, link_relativo=True):
             
             if f == '.gitkeep':
                 icone = "📂"
-                # Remove o nome .gitkeep da exibição para ficar mais limpo, mostra a pasta
+                # Remove o nome .gitkeep da exibição para ficar mais limpo
                 pasta_pai = os.path.dirname(nome_exibicao)
                 nome_exibicao = f"{pasta_pai}/ (Estrutura)"
-                desc = " | *Diretório de Saída (Conteúdo gerado ignorado pelo Git)*"
+                desc = " | *Diretório de Output (Mantido via .gitkeep)*"
             elif f.endswith('.py'): icone = "🐍"
             elif f.endswith('.sh'): icone = "🐚"
             elif f.endswith(('.wav', '.mp3')): icone = "🔊"
@@ -119,10 +131,9 @@ def gerar_lista_arquivos(pasta_raiz, link_relativo=True):
             
             # Cria o link Markdown
             prefixo = f"./{pasta_raiz}/" if not link_relativo else "./"
-            # Se for gitkeep, o link aponta para a pasta onde ele está
+            # Se for gitkeep, o link aponta para a pasta
             link = f"{prefixo}{os.path.dirname(os.path.relpath(caminho_completo, pasta_raiz))}" if f == '.gitkeep' else f"{prefixo}{nome_exibicao}"
             
-            # Formatação da linha
             if f == '.gitkeep':
                  linhas.append(f"- {icone} **[{nome_exibicao}]({link})** {desc}")
             else:
@@ -156,7 +167,7 @@ def main():
                 f.write(f"# 📁 Módulo: {pasta}\n\n> {DEFINICOES[pasta]}\n\n## 🧰 Estrutura e Ferramentas\n")
                 f.write("\n".join(gerar_lista_arquivos(pasta, link_relativo=True)))
 
-    print("✅ Documentação Viva atualizada (Outputs incluídos)!")
+    print("✅ Documentação Viva atualizada (Stack Sênior + Outputs)!")
 
 if __name__ == "__main__":
     main()

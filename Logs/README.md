@@ -1,6 +1,6 @@
 # 📁 Módulo: Logs
 
-> Histórico de execução e auditoria.
+> Registro de atividades, histórico de erros e auditoria.
 
 ## 🧰 Estrutura e Ferramentas
-- 📂 **[/ (Estrutura)](./)**  | *Diretório de Saída (Conteúdo gerado ignorado pelo Git)*
+- 📂 **[/ (Estrutura)](./)**  | *Diretório de Output (Mantido via .gitkeep)*

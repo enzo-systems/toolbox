@@ -1,6 +1,6 @@
 # 📁 Módulo: Agentes_Dados
 
-> Coleta de dados, Scraping e Processamento de RSS.
+> Coleta e processamento de notícias e oportunidades (Scraping/RSS).
 
 ## 🧰 Estrutura e Ferramentas
 - 🐍 **[career_hunter.py](./career_hunter.py)** (2026-01-08) | *NÍVEL 2: Career Hunter STATUS: Corrigido com Debug de Caminhos Absolutos.*
