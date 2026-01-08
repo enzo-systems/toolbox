@@ -1,81 +1,71 @@
-# 🛠️ ToolBox - Ecossistema de Automação Sênior
+# 🛠️ ToolBox - Ecossistema de Agentes Autônomos
 
 ### 📂 Visão Geral e Arquitetura
-Este repositório é um ecossistema de automação modular desenvolvido para ambiente **Linux (Fedora/Debian/Ubuntu)**. O projeto integra agentes inteligentes e utilitários de infraestrutura sob uma arquitetura de níveis (1 a 4), focando em:
+Este repositório foi reestruturado para operar através de **Agentes Especializados**. Cada diretório representa um domínio de competência técnica, integrando automação modular sob uma arquitetura de níveis.
 
-* **Inteligência de Dados:** Agentes autônomos para extração e processamento via *Web Scraping* e integração com *APIs REST*.
-* **Segurança e Redes:** Ferramentas de auditoria de criptografia (SSL) e diagnóstico de conectividade de baixo nível.
-* **Processamento de Mídia:** Pipelines para manipulação de imagem e síntese vocal, explorando automação visual e auditiva.
-* **Resiliência de Sistema:** Scripts de manutenção de infraestrutura e gestão de processos em background (*Daemons*) com foco em persistência estruturada em CSV e JSON.
+* **Agentes de Dados:** Inteligência de busca, scraping e coleta de dados.
+* **Agentes de Monitor:** Integridade de redes, latência e diagnóstico de sistemas.
+* **Agentes de Visao:** Processamento de imagem, higienização e privacidade.
+* **Agentes de Voz:** Síntese vocal e inteligência auditiva.
+* **Infraestrutura:** Gestão de logs, configurações centralizadas e automação bash.
 
 ---
 
-### 🤖 /Robos
-Unidade de Agentes Autônomos especializados por nível de complexidade.
+### 🛰️ /Agentes_Dados
+> Coleta e processamento de notícias e oportunidades (Scraping/RSS).
 
-- **[career_hunter.py](./Robos/career_hunter.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente de Monitoramento de Mercado FUNÇÃO: Rastreia e filtra oportunidades de carreira em portais especializados. CONCEITOS: Web Crawling, BeautifulSoup4, Automação de Busca, Persistência de Dados.*
-- **[cotacao_dolar.py](./Robos/cotacao_dolar.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente Financeiro Autônomo FUNÇÃO: Captura cotações em tempo real via API e gera séries históricas. CONCEITOS: Integração de APIs REST, Configuração Centralizada, Persistência CSV.*
-- **[global_news_sniper.py](./Robos/global_news_sniper.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente de Inteligência de Dados FUNÇÃO: Coleta e processa notícias internacionais via RSS (Feedparser). CONCEITOS: RSS Parsing, Normalização de Dados, Persistência Estruturada.*
-- **[news_sniper.py](./Robos/news_sniper.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Agente de Extração de Dados FUNÇÃO: Coleta notícias de fontes globais via Web Scraping. CONCEITOS: BeautifulSoup, requests, persistência em JSON.*
-- **[sentinela.py](./Robos/sentinela.py)**: Last Commit (2026-01-07) | *NÍVEL 1: Agente de Monitoramento de Infraestrutura FUNÇÃO: Vigia a integridade do sistema, gerencia conectividade e rotatividade de logs. Este bot é a base, o vigia do sistema CONCEITOS: I/O de Sistema, Gestão de Logs, Daemonize.*
-- **[ssl_hunter.py](./Robos/ssl_hunter.py)**: Last Commit (2026-01-07) | *NÍVEL 2: Auditor de Criptografia e Redes FUNÇÃO: Varredura e validação de certificados SSL/TLS em domínios externos. Este bot trata com segurança e rede CONCEITOS: pyOpenSSL, Protocolos de Segurança, Diagnóstico de Rede.*
-- **[system_expert.py](./Robos/system_expert.py)**: (2026-01-07) | *NÍVEL 1: Agente de Diagnóstico de Infraestrutura FUNÇÃO: Analisa comandos Linux e gera documentação formatada para comunidades. CONCEITOS: Shell Integration, Log Parsing, Integração com API TLDR.*
-- **[watchdog_sentinela.py](./Robos/watchdog_sentinela.py)**: Last Commit (2026-01-07) | *NÍVEL 1: Supervisor de Processos (Watchdog) FUNÇÃO: Garante a persistência e reinicialização automática dos agentes do sistema. Este bot trata com Infraestrutura pura. CONCEITOS: Monitoramento de Processos, Resiliência, Systemd.*
-- **[web_monitor.py](./Robos/web_monitor.py)**: . (2026-01-07) | *NÍVEL 2: Agente de Integridade de Redes FUNÇÃO: Monitora disponibilidade e latência de serviços web críticos. CONCEITOS: Socket Programming, HTTP Status Monitoring, Tempo de Resposta.*
+- **[career_hunter.py](./Agentes_Dados/career_hunter.py)**: Aguardando commit | *NÍVEL 2: Agente de Monitoramento de Mercado FUNÇÃO: Rastreia e filtra oportunidades de carreira em portais especializados. CONCEITOS: Web Crawling, BeautifulSoup4, Automação de Busca, Persistência de Dados.*
+- **[cotacao_dolar.py](./Agentes_Dados/cotacao_dolar.py)**: Aguardando commit | *NÍVEL 2: Agente Financeiro Autônomo FUNÇÃO: Captura cotações em tempo real via API e gera séries históricas. CONCEITOS: Integração de APIs REST, Configuração Centralizada, Persistência CSV.*
+- **[global_news_sniper.py](./Agentes_Dados/global_news_sniper.py)**: Aguardando commit | *NÍVEL 2: Agente de Inteligência de Dados FUNÇÃO: Coleta e processa notícias internacionais via RSS (Feedparser). CONCEITOS: RSS Parsing, Normalização de Dados, Persistência Estruturada.*
+- **[news_sniper.py](./Agentes_Dados/news_sniper.py)**: Aguardando commit | *NÍVEL 2: Agente de Extração de Dados FUNÇÃO: Coleta notícias de fontes globais via Web Scraping. CONCEITOS: BeautifulSoup, requests, persistência em JSON.*
 
-### 📂 /Scripts
-Utilitários de Automação de Infraestrutura e Manutenção de Sistema (Nível 1).
+### 🖥️ /Agentes_Monitor
+> Monitoramento de integridade web e diagnóstico de hardware/OS.
 
-- **[backup_toolbox.sh](./Scripts/backup_toolbox.sh)**: Last Commit (2026-01-07) | *NÍVEL 1: Automação de Infraestrutura*
-- **[gerar_docs.py](./Scripts/gerar_docs.py)**: (2026-01-07) | *ROBÔ: ARQUITETO DE DOCS (V2.5 - Full Auto) FUNÇÃO: Geração integral do ecossistema de documentação (Raiz + Subpastas). STATUS: Operacional - Nível 1*
+- **[sentinela.py](./Agentes_Monitor/sentinela.py)**: Aguardando commit | *NÍVEL 1: Agente de Monitoramento de Infraestrutura FUNÇÃO: Vigia a integridade do sistema, gerencia conectividade e rotatividade de logs. Este bot é a base, o vigia do sistema CONCEITOS: I/O de Sistema, Gestão de Logs, Daemonize.*
+- **[ssl_hunter.py](./Agentes_Monitor/ssl_hunter.py)**: Aguardando commit | *NÍVEL 2: Auditor de Criptografia e Redes FUNÇÃO: Varredura e validação de certificados SSL/TLS em domínios externos. CONCEITOS: pyOpenSSL, Protocolos de Segurança, Persistência de Auditoria.*
+- **[system_expert.py](./Agentes_Monitor/system_expert.py)**: Aguardando commit | *NÍVEL 1: Agente de Diagnóstico de Infraestrutura FUNÇÃO: Analisa comandos Linux e gera documentação formatada para comunidades. CONCEITOS: Shell Integration, Log Parsing, Integração com API TLDR.*
+- **[watchdog_sentinela.py](./Agentes_Monitor/watchdog_sentinela.py)**: Aguardando commit | *NÍVEL 1: Supervisor de Processos (Watchdog) FUNÇÃO: Garante a persistência e reinicialização automática dos agentes do sistema. Este bot trata com Infraestrutura pura. CONCEITOS: Monitoramento de Processos, Resiliência, Systemd.*
+- **[web_monitor.py](./Agentes_Monitor/web_monitor.py)**: Aguardando commit | *NÍVEL 2: Agente de Integridade de Redes FUNÇÃO: Monitora disponibilidade e latência de serviços web críticos. CONCEITOS: Socket Programming, HTTP Status Monitoring, Tempo de Resposta.*
+
+### 👁️ /Agentes_Visao
+> Processamento de imagens, filtros e remoção de metadados.
+
+- **[vision_processor.py](./Agentes_Visao/vision_processor.py)**: Aguardando commit | *NÍVEL 3: Processador de Visão Computacional FUNÇÃO: Higienização e formatação de fotos de perfil (LinkedIn Style). CONCEITOS: Pillow, Máscara Alpha, Organização de Data/output_images.*
+
+### 🎙️ /Agentes_Voz
+> Conversão de texto em fala (TTS) e inteligência auditiva.
+
+- **[voice_synthesizer.py](./Agentes_Voz/voice_synthesizer.py)**: Aguardando commit | *NÍVEL 4: Sintetizador de Inteligência Auditiva FUNÇÃO: Processamento de áudio e síntese vocal para interfaces. CONCEITOS: DSP (Digital Signal Processing), TTS (Text-to-Speech), Waveform.*
+
+### 📜 /Scripts
+> Utilitários de manutenção, backup e automação de infraestrutura.
+
+- **[backup_toolbox.sh](./Scripts/backup_toolbox.sh)**: (2026-01-07) | *NÍVEL 1: Automação de Infraestrutura*
 
 ### ⚙️ /Config
-Gestor de Parâmetros, Caminhos (Settings) e Variáveis de Ambiente (Nível 1).
+> Cérebro do projeto (Settings, caminhos absolutos e variáveis).
 
-- **[settings.py](./Config/settings.py)**: . (2026-01-07) | *NÍVEL 1: Gestor de Ambiente e Caminhos FUNÇÃO: Centraliza a inteligência de diretórios e parâmetros globais do sistema. CONCEITOS: Abstração de Caminhos, Configuração Centralizada.*
+- **[settings.py](./Config/settings.py)**: . (2026-01-07) | *NÍVEL 1: Gestor de Ambiente e Caminhos (Versão Agentes V2) FUNÇÃO: Centraliza a inteligência de diretórios e separação por tipo de dado. CONCEITOS: Abstração de Caminhos, Configuração Centralizada, Higiene de Dados.*
 
-### 🐳 /Docker
-Orquestrador de Containers e Ambientes Isolados (Nível 1).
-
-- *Pasta estruturada.*
-
-### 📚 /Docs
-Repositório de Documentação Técnica e Manuais do Projeto.
+### 📊 /Data
+> Repositório central de entrada (input) e saída (output) de dados.
 
 - *Pasta estruturada.*
 
 ### 📝 /Logs
-Registro de Atividades, Históricos e Depuração de Processos.
+> Registro de atividades e rastreabilidade de processos.
 
 - *Pasta estruturada.*
 
-### 🖼️ /Imagens
-Módulos de Processamento Visual e Manipulação de Imagens (Nível 3).
+### 📦 /Assets
+> Recursos estáticos e arquivos fixos do sistema.
 
-- **[vision_processor.py](./Imagens/vision_processor.py)**: Last Commit (2026-01-07) | *NÍVEL 3: Processador de Visão Computacional FUNÇÃO: Análise, redimensionamento e extração de metadados de imagens. CONCEITOS: Pillow, Filtros de Imagem, Manipulação de Matrizes.*
-
-### 🎙️ /CloneVoz
-Módulos de Processamento de Áudio e Síntese Vocal.
-
-- **[voice_synthesizer.py](./CloneVoz/voice_synthesizer.py)**: Last Commit (2026-01-07) | *NÍVEL 4: Sintetizador de Inteligência Auditiva FUNÇÃO: Processamento de áudio e síntese vocal para interfaces. CONCEITOS: DSP (Digital Signal Processing), TTS (Text-to-Speech), Waveform.*
-
-### 📊 /Data
-Repositório de Dados Estruturados (JSON/CSV) gerados pelos robôs (Persistência).
-
-- **[memoria_world.json](./Data/memoria_world.json)**: . (2026-01-07)
-- **[vagas_encontradas.json](./Data/vagas_encontradas.json)**: . (2026-01-07)
-- **[web_monitor_results.json](./Data/web_monitor_results.json)**: (2026-01-07)
+- *Pasta estruturada.*
 
 ---
 ### 🛠️ Stack Tecnológico
 - **Linguagem:** Python 3.x / Bash
 - **OS:** Linux (Fedora / Debian / Ubuntu)
-- **Libs Principais:**
-    - `requests`: Integração com APIs e requisições HTTP.
-    - `BeautifulSoup4`: Extração de dados de HTML (Web Scraping).
-    - `Pillow (PIL)`: Processamento e manipulação de imagens (Nível 3).
-    - `pyOpenSSL`: Auditoria e gestão de certificados SSL.
-    - `logging`: Sistema de rastreabilidade e histórico de eventos.
-    - `socket`: Verificações de baixo nível de conectividade.
-    - `csv/json`: Persistência de dados estruturados.
-- **Conceitos:** Web Scraping, Image Processing, Daemon Processes, Logging, API REST, Persistência de Dados.
+- **Libs Principais:** `requests`, `BeautifulSoup4`, `Pillow (PIL)`, `gTTS`, `logging`.
+- **Arquitetura:** Centralização de Caminhos via `Pathlib`, Persistência em JSON/CSV e Pipeline I/O.

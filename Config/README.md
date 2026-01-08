@@ -1,6 +1,6 @@
 # 📁 /Config
 
-> Gestor de Parâmetros, Caminhos (Settings) e Variáveis de Ambiente (Nível 1).
+> Cérebro do projeto (Settings, caminhos absolutos e variáveis).
 
 ## 📜 Arquivos
-- **[settings.py](./settings.py)**: . (2026-01-07) | *NÍVEL 1: Gestor de Ambiente e Caminhos FUNÇÃO: Centraliza a inteligência de diretórios e parâmetros globais do sistema. CONCEITOS: Abstração de Caminhos, Configuração Centralizada.*
+- **[settings.py](./settings.py)**: . (2026-01-07) | *NÍVEL 1: Gestor de Ambiente e Caminhos (Versão Agentes V2) FUNÇÃO: Centraliza a inteligência de diretórios e separação por tipo de dado. CONCEITOS: Abstração de Caminhos, Configuração Centralizada, Higiene de Dados.*

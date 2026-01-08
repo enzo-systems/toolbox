@@ -11,16 +11,15 @@ import csv
 from datetime import datetime
 from pathlib import Path
 
-# --- BOOTSTRAP: LOCALIZA O SETTINGS ---
-# Adiciona a raiz do projeto ao sistema para permitir a importação de Config
+# --- BOOTSTRAP: CONEXÃO COM O SETTINGS ---
 BASE_DIR = Path(__file__).resolve().parent.parent
 if str(BASE_DIR) not in sys.path:
     sys.path.append(str(BASE_DIR))
 
 try:
-    from Config.settings import CAMBIO_CONFIG
+    from Config.settings import CAMBIO_CONFIG, DIRS
 except ImportError:
-    print("Erro: Não foi possível localizar Config/settings.py")
+    print("❌ Erro: Não foi possível localizar Config/settings.py")
     sys.exit(1)
 
 def buscar_cotacao():
@@ -28,17 +27,17 @@ def buscar_cotacao():
         response = requests.get(CAMBIO_CONFIG["url_api"], timeout=10)
         response.raise_for_status()
         data = response.json()
-        # A API retorna algo como USDBRL, pegamos o valor de compra (bid)
         par = list(data.keys())[0]
         return data[par]['bid']
     except Exception as e:
-        print(f"Falha na coleta: {e}")
+        print(f"⚠️ Falha na coleta: {e}")
         return None
 
 def salvar_dados(valor):
     if not valor: return
     
-    arquivo = CAMBIO_CONFIG["arquivo_saida"]
+    # Garantimos que o arquivo seja salvo dentro de Data/
+    arquivo = DIRS["DATA"] / "cotacao_dolar.csv"
     header = ['Data_Hora', 'Valor_BRL']
     existe = arquivo.exists()
     agora = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -49,7 +48,7 @@ def salvar_dados(valor):
             writer.writerow(header)
         writer.writerow([agora, valor])
     
-    print(f"✅ Registro finalizado: R$ {valor} em {arquivo.name}")
+    print(f"✅ Registro arquivado em: Data/{arquivo.name} | Valor: R$ {valor}")
 
 if __name__ == "__main__":
     cotacao = buscar_cotacao()

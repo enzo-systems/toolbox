@@ -1,0 +1,6 @@
+# 📁 /Agentes_Voz
+
+> Conversão de texto em fala (TTS) e inteligência auditiva.
+
+## 📜 Arquivos
+- **[voice_synthesizer.py](./voice_synthesizer.py)**: Aguardando commit | *NÍVEL 4: Sintetizador de Inteligência Auditiva FUNÇÃO: Processamento de áudio e síntese vocal para interfaces. CONCEITOS: DSP (Digital Signal Processing), TTS (Text-to-Speech), Waveform.*
