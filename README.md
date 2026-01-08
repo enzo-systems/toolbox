@@ -70,6 +70,17 @@ Este repositório opera através de **Agentes Especializados** e uma infraestrut
 - *Aguardando geração de dados ou scripts.*
 
 ---
-### 🛠️ Stack Tecnológico
-- **Base:** Python 3.x / Linux
-- **Arquitetura:** Agentes Independentes com Persistência Estruturada.
+### 🛠️ Stack Tecnológico e Engenharia
+- **Core Executivo:** Python 3.x & Bash Scripting (Automação de Infraestrutura).
+- **Domínios de Inteligência:**
+    - `Requests` & `BeautifulSoup4`: Engenharia de extração e consumo de APIs REST.
+    - `Pillow (PIL)`: Pipeline de processamento de imagem e manipulação de metadados.
+    - `gTTS`: Síntese de voz e processamento de fluxos de áudio.
+- **Resiliência e Monitoramento:**
+    - `Socket`: Diagnósticos de conectividade em baixo nível (TCP/UDP).
+    - `Logging (RotatingFileHandler)`: Gestão de logs cíclicos com controle de volumetria.
+    - `Subprocess`: Orquestração de comandos do sistema operacional (Fedora/Linux).
+- **Arquitetura de Dados:**
+    - **Persistência Estruturada:** Armazenamento em CSV (Séries temporais) e JSON (Status/Auditoria).
+    - **Estratégia de I/O:** Separação rigorosa entre `input_` (Matéria-prima) e `output_` (Processados).
+    - **Portabilidade:** Gestão de caminhos absolutos via `Pathlib` para integridade entre ambientes.

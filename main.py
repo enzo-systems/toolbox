@@ -2,7 +2,7 @@
 """
 ORQUESTRADOR: main.py
 FUNÇÃO: Ponto de entrada da ToolBox. Gerencia documentação e integridade do sistema.
-STATUS: Operacional - Auditoria Profunda (Deep Scan)
+STATUS: Operacional - Auditoria Profunda & Stack Sênior
 """
 
 import os
@@ -25,7 +25,26 @@ Este repositório opera através de **Agentes Especializados** e uma infraestrut
 ---
 """
 
-# --- 2. DEFINIÇÕES POR DOMÍNIO ---
+# --- 2. STACK TECNOLÓGICO DETALHADO ---
+STACK_TECNOLOGICO = """
+---
+### 🛠️ Stack Tecnológico e Engenharia
+- **Core Executivo:** Python 3.x & Bash Scripting (Automação de Infraestrutura).
+- **Domínios de Inteligência:**
+    - `Requests` & `BeautifulSoup4`: Engenharia de extração e consumo de APIs REST.
+    - `Pillow (PIL)`: Pipeline de processamento de imagem e manipulação de metadados.
+    - `gTTS`: Síntese de voz e processamento de fluxos de áudio.
+- **Resiliência e Monitoramento:**
+    - `Socket`: Diagnósticos de conectividade em baixo nível (TCP/UDP).
+    - `Logging (RotatingFileHandler)`: Gestão de logs cíclicos com controle de volumetria.
+    - `Subprocess`: Orquestração de comandos do sistema operacional (Fedora/Linux).
+- **Arquitetura de Dados:**
+    - **Persistência Estruturada:** Armazenamento em CSV (Séries temporais) e JSON (Status/Auditoria).
+    - **Estratégia de I/O:** Separação rigorosa entre `input_` (Matéria-prima) e `output_` (Processados).
+    - **Portabilidade:** Gestão de caminhos absolutos via `Pathlib` para integridade entre ambientes.
+"""
+
+# --- 3. DEFINIÇÕES POR DOMÍNIO ---
 DEFINICOES = {
     "Agentes_Dados": "Coleta e processamento de notícias e oportunidades (Scraping/RSS).",
     "Agentes_Monitor": "Monitoramento de integridade web e diagnóstico de hardware/OS.",
@@ -50,7 +69,7 @@ MAPA_MODULOS = {
     "Assets": "### 📦 /Assets"
 }
 
-# --- 3. LÓGICA DE EXTRAÇÃO E AUDITORIA ---
+# --- 4. LÓGICA DE EXTRAÇÃO E AUDITORIA ---
 
 def extrair_docstring(filepath):
     try:
@@ -106,7 +125,7 @@ def gerar_lista_arquivos(pasta, link_relativo=True):
         
     return linhas if linhas else ["- *Aguardando geração de dados ou scripts.*"]
 
-# --- 4. EXECUÇÃO DO ORQUESTRADOR ---
+# --- 5. EXECUÇÃO DO ORQUESTRADOR ---
 
 def main():
     print(f"🚀 Iniciando Auditoria Deep Scan em: {os.getcwd()}")
@@ -119,8 +138,8 @@ def main():
             conteudo_raiz += f"\n{header}\n> {DEFINICOES[pasta]}\n\n"
             conteudo_raiz += "\n".join(gerar_lista_arquivos(pasta, False)) + "\n"
 
-    # Adiciona o rodapé técnico
-    conteudo_raiz += "\n---\n### 🛠️ Stack Tecnológico\n- **Base:** Python 3.x / Linux\n- **Arquitetura:** Agentes Independentes com Persistência Estruturada."
+    # Adiciona o Stack Tecnológico Detalhado ao final
+    conteudo_raiz += STACK_TECNOLOGICO
 
     # Salva o README principal
     with open('README.md', 'w', encoding='utf-8') as f:
@@ -133,7 +152,7 @@ def main():
                 f.write(f"# 📁 /{pasta}\n\n> {DEFINICOES[pasta]}\n\n## 📜 Conteúdo Detectado\n")
                 f.write("\n".join(gerar_lista_arquivos(pasta, True)))
 
-    print("✅ Sucesso! README.md agora reflete toda a hierarquia de Agentes e Dados.")
+    print("✅ Sucesso! README.md agora reflete a Engenharia e Arquitetura completa.")
 
 if __name__ == "__main__":
     main()
