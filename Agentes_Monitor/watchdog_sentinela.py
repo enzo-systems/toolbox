@@ -1,42 +1,68 @@
-#!/usr/bin/env python3 
-# --- DOCSTRINGS ---
+#!/usr/bin/env python3
 """
-NÍVEL 1: Supervisor de Processos (Watchdog)
-FUNÇÃO: Garante a persistência e reinicialização automática dos agentes do sistema. Este bot trata com Infraestrutura pura.
-CONCEITOS: Monitoramento de Processos, Resiliência, Systemd.
+NÍVEL 2: Watchdog (Supervisor de Resiliência)
+FUNÇÃO: Valida o heartbeat do Sentinela e dispara alertas visuais no Fedora.
+CONCEITOS: Auditoria de Heartbeat, Notificação de Sistema (GNOME), Resiliência.
 """
 
+import sys
+import json
 import subprocess
-import time
-import os
+from pathlib import Path
+from datetime import datetime
 
-def enviar_notificacao(titulo, mensagem):
-    """Envia um popup visual no desktop do Fedora."""
+# --- BOOTSTRAP: CONEXÃO COM O SETTINGS ---
+BASE_DIR = Path(__file__).resolve().parent.parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.append(str(BASE_DIR))
+
+try:
+    from Config.settings import DIRS
+    STATUS_SENTINELA = DIRS["JSON"] / "sentinela_status.json"
+    LOG_SISTEMA = DIRS["LOGS"] / "system_toolbox.log"
+except ImportError:
+    STATUS_SENTINELA = Path("Data/json/sentinela_status.json")
+    LOG_SISTEMA = Path("Logs/system_toolbox.log")
+
+def enviar_notificacao_fedora(mensagem):
+    """Sua ideia original: Alerta visual no GNOME/Fedora."""
     try:
-        # O comando notify-send é padrão no GNOME (Fedora)
-        subprocess.run(['notify-send', '-u', 'critical', titulo, mensagem])
-    except Exception as e:
-        print(f"Erro ao enviar notificação: {e}")
+        subprocess.run(['notify-send', '-u', 'critical', '🚨 ToolBox Watchdog', mensagem])
+    except: pass
 
-def verificar_servico(nome_servico):
-    """Consulta o systemctl para saber se o serviço está rodando."""
-    try:
-        cmd = ['systemctl', 'is-active', nome_servico]
-        resultado = subprocess.run(cmd, capture_output=True, text=True)
-        return resultado.stdout.strip() == 'active'
-    except Exception:
-        return False
-
-print("👁️  Watchdog iniciado. Vigiando o Sentinela...")
-
-while True:
-    if not verificar_servico('sentinela.service'):
-        # Se o Sentinela caiu, avisamos o Arquiteto imediatamente
-        enviar_notificacao(
-            "🚨 ALERTA DO ARQUITETO", 
-            "O Sentinela parou de responder! Verifique o sistema."
-        )
-        print("⚠️  ALERTA: Sentinela offline. Notificação enviada.")
+def auditar_sistema():
+    print("🐕 [Watchdog] Checando batimentos do Sentinela...")
     
-    # Verifica a cada 5 minutos para não sobrecarregar o sistema
-    time.sleep(300)
+    if not STATUS_SENTINELA.exists():
+        msg = "Sentinela NUNCA foi iniciado!"
+        registrar_e_notificar(msg)
+        return
+
+    try:
+        with open(STATUS_SENTINELA, 'r', encoding='utf-8') as f:
+            status = json.load(f)
+        
+        ultimo_check = datetime.strptime(status["ultimo_check"], "%Y-%m-%d %H:%M:%S")
+        atraso = (datetime.now() - ultimo_check).total_seconds()
+
+        # Se o Sentinela não der sinal de vida por mais de 3 minutos
+        if atraso > 180:
+            msg = f"Sentinela travado! Último sinal há {int(atraso)}s."
+            registrar_e_notificar(msg)
+        else:
+            print(f"✅ Sistema Saudável. (Atraso: {int(atraso)}s)")
+
+    except Exception as e:
+        registrar_e_notificar(f"Erro na auditoria: {e}")
+
+def registrar_e_notificar(msg):
+    print(f"⚠️ {msg}")
+    agora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # Escreve no Log Central
+    with open(LOG_SISTEMA, 'a', encoding='utf-8') as f:
+        f.write(f"{agora} - [WATCHDOG] - {msg}\n")
+    # Envia o Popup no seu Fedora
+    enviar_notificacao_fedora(msg)
+
+if __name__ == "__main__":
+    auditar_sistema()

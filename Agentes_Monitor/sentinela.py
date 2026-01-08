@@ -1,28 +1,40 @@
-#!/usr/bin/env python3 
-# --- DOCSTRINGS ---
+#!/usr/bin/env python3
 """
-NÍVEL 1: Agente de Monitoramento de Infraestrutura
-FUNÇÃO: Vigia a integridade do sistema, gerencia conectividade e rotatividade de logs. Este bot é a base, o vigia do sistema
-CONCEITOS: I/O de Sistema, Gestão de Logs, Daemonize.
+NÍVEL 2: Sentinela de Infraestrutura
+FUNÇÃO: Vigia a conectividade e gerencia a rotatividade de logs do sistema.
+CONCEITOS: I/O de Sistema, RotatingFileHandler, Daemonize Simulation.
 """
 
+import sys
 import time
 import socket
 import logging
+import json
 from logging.handlers import RotatingFileHandler
+from pathlib import Path
 from datetime import datetime
 
-# --- CONFIGURAÇÃO DO ARQUITETO (VERSÃO BLINDADA) ---
-# Definimos um Handler que rotaciona o arquivo para ele não crescer infinitamente.
-# maxBytes = 5MB (5 * 1024 * 1024)
-# backupCount = 3 (Mantém o atual + 3 arquivos antigos de histórico)
+# --- BOOTSTRAP: CONEXÃO COM O SETTINGS ---
+BASE_DIR = Path(__file__).resolve().parent.parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.append(str(BASE_DIR))
+
+try:
+    from Config.settings import DIRS
+    CAMINHO_LOG = DIRS["LOGS"] / "sentinela.log"
+    STATUS_JSON = DIRS["JSON"] / "sentinela_status.json"
+except ImportError:
+    CAMINHO_LOG = Path("Logs/sentinela.log")
+    STATUS_JSON = Path("Data/json/sentinela_status.json")
+
+# --- 1. CONFIGURAÇÃO DE LOG ROTATIVO (PADRÃO SÊNIOR) ---
 log_handler = RotatingFileHandler(
-    'Log/sentinela.log', 
-    maxBytes=5*1024*1024, 
-    backupCount=3
+    CAMINHO_LOG, 
+    maxBytes=2*1024*1024, # Reduzi para 2MB para ser mais ágil
+    backupCount=3,
+    encoding='utf-8'
 )
 
-# Aplicamos a configuração usando o nosso handler rotativo
 logging.basicConfig(
     handlers=[log_handler],
     level=logging.INFO, 
@@ -31,26 +43,41 @@ logging.basicConfig(
 )
 
 def checar_conexao():
-    """Tenta conectar ao DNS do Google (8.8.8.8) na porta 53.
-    É mais rápido e silencioso que um ping."""
+    """Verifica conectividade via Socket TCP na porta 53 (DNS)."""
     try:
         socket.create_connection(("8.8.8.8", 53), timeout=3)
         return True
     except OSError:
         return False
 
-print("🛡️  Sentinela iniciado. Rodando em background com proteção de log...")
-print("📝  Verifique o arquivo 'sentinela.log'. Limite automático: 5MB.")
+def atualizar_status_visual(online):
+    """Atualiza um JSON para que o main.py saiba o estado da rede sem ler logs."""
+    status = {
+        "ultimo_check": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "rede_online": online,
+        "agente": "Sentinela"
+    }
+    with open(STATUS_JSON, 'w', encoding='utf-8') as f:
+        json.dump(status, f, indent=4)
 
-# --- O LOOP INFINITO (DAEMON) ---
-while True:
-    if checar_conexao():
-        # Em vez de print, usamos logging.info
-        logging.info("STATUS: ONLINE - A rede está operante.")
-    else:
-        # Se cair, logamos como WARNING (Aviso)
-        logging.warning("ALERTA: OFFLINE - Conexão perdida!")
-    
-    # O Arquiteto define o ritmo. 
-    # Dorme por 60 segundos para não gastar CPU à toa.
-    time.sleep(60) 
+if __name__ == "__main__":
+    print(f"🛡️  Sentinela iniciado. Log: {CAMINHO_LOG.name}")
+    print("🚦 Monitorando rede... (Pressione Ctrl+C para parar)")
+
+    try:
+        while True:
+            online = checar_conexao()
+            
+            if online:
+                logging.info("STATUS: ONLINE - Conectividade estabelecida.")
+            else:
+                logging.warning("ALERTA: OFFLINE - Falha de conexão detectada!")
+            
+            atualizar_status_visual(online)
+            
+            # O Arquiteto define o intervalo (60 segundos)
+            time.sleep(60)
+            
+    except KeyboardInterrupt:
+        print("\n🛑 Sentinela desativado pelo usuário.")
+        logging.info("Sentinela encerrado manualmente.")
