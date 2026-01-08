@@ -1,104 +1,103 @@
 #!/usr/bin/env python3 
 """
-NÍVEL 2: Agente de Extração de Dados
-FUNÇÃO: Coleta notícias de fontes globais via Web Scraping.
-CONCEITOS: BeautifulSoup, requests, persistência em JSON.
+NÍVEL 2: Agente de Extração de Dados (News Sniper)
+STATUS: Corrigido com Debug de Caminhos Absolutos.
 """
+
+import sys
 import requests
-from bs4 import BeautifulSoup
 import json
-import os
-from datetime import datetime 
+from bs4 import BeautifulSoup
+from pathlib import Path
 
-# --- CONFIGURAÇÃO DO ARQUITETO ---
-# Onde vamos caçar?
+# --- BOOTSTRAP ---
+BASE_DIR = Path(__file__).resolve().parent.parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.append(str(BASE_DIR))
+
+try:
+    from Config.settings import DIRS
+    ARQUIVO_MEMORIA = DIRS["JSON"] / "news_sniper_memory.json"
+except ImportError:
+    ARQUIVO_MEMORIA = BASE_DIR / "Data" / "json" / "news_sniper_memory.json"
+
+# Garante que a pasta existe
+ARQUIVO_MEMORIA.parent.mkdir(parents=True, exist_ok=True)
+
 URL_ALVO = "https://www.tabnews.com.br"
-
-# O que estamos procurando? (Case insensitive - ele converte tudo pra minusculo pra comparar)
 PALAVRAS_CHAVE = ["inteligência artificial", "linux", "python"]
 
-# Onde guardar a memória do que já vimos?
-ARQUIVO_MEMORIA = "Logs/memoria_news.json"
-
 def carregar_memoria():
-    """Lê o arquivo JSON para saber quais notícias já processamos."""
-    if os.path.exists(ARQUIVO_MEMORIA):
+    if ARQUIVO_MEMORIA.exists():
         try:
-            with open(ARQUIVO_MEMORIA, 'r') as f:
+            with open(ARQUIVO_MEMORIA, 'r', encoding='utf-8') as f:
                 return json.load(f)
-        except:
-            return [] # Se der erro, retorna lista vazia
+        except: return []
     return []
 
 def salvar_memoria(lista_vistos):
-    """Atualiza o arquivo JSON com as novas notícias vistas."""
-    with open(ARQUIVO_MEMORIA, 'w') as f:
-        json.dump(lista_vistos, f)
+    try:
+        with open(ARQUIVO_MEMORIA, 'w', encoding='utf-8') as f:
+            json.dump(lista_vistos, f, indent=4)
+        return True
+    except Exception as e:
+        print(f"❌ Erro de permissão ao salvar em {ARQUIVO_MEMORIA}: {e}")
+        return False
 
 def caçar_noticias():
-    print(f"🕵️  Iniciando varredura no TabNews...")
+    print(f"📁 [DEBUG] Arquivo de Memória: {ARQUIVO_MEMORIA}")
+    print(f"🕵️  [News Sniper] Varrendo TabNews...")
     
-    # 1. Fingir ser um navegador real (Bypass básico)
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
-    }
+    headers = {'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36'}
 
     try:
-        response = requests.get(URL_ALVO, headers=headers)
-        response.raise_for_status() # Para se der erro 404/500
+        response = requests.get(URL_ALVO, headers=headers, timeout=10)
+        response.raise_for_status()
     except Exception as e:
         print(f"❌ Erro ao conectar: {e}")
         return
 
-    # 2. Transformar o HTML em Objeto Python
     soup = BeautifulSoup(response.text, 'html.parser')
-    
-    # 3. Extrair os Links (No TabNews, os titulos ficam dentro de tags <a>)
-    # Essa lógica pega TODOS os links da página
     links = soup.find_all('a')
-
+    
     memoria = carregar_memoria()
     novas_descobertas = []
-
-    print(f"🔎 Analisando {len(links)} links encontrados...")
+    
+    print(f"🔎 Analisando {len(links)} links...")
 
     for link in links:
         titulo = link.get_text().strip()
-        url_noticia = link.get('href')
+        url_relativa = link.get('href')
 
-        # Filtro de Qualidade: Ignora links vazios ou curtos demais
-        if not titulo or len(titulo) < 10:
-            continue
+        if not titulo or len(titulo) < 5 or not url_relativa: continue
             
-        # Normaliza para busca (tudo minúsculo)
+        url_final = url_relativa if url_relativa.startswith('http') else f"{URL_ALVO}{url_relativa}"
         titulo_lower = titulo.lower()
 
-        # 4. A Lógica do Sniper: Bate com as Keywords?
+        # Verifica Keywords
         encontrou = False
-        keyword_achada = ""
-        
+        match = ""
         for palavra in PALAVRAS_CHAVE:
             if palavra in titulo_lower:
                 encontrou = True
-                keyword_achada = palavra
-                break # Se achou uma, não precisa buscar as outras no mesmo titulo
+                match = palavra
+                break 
         
         if encontrou:
-            # Verifica se já vimos essa notícia antes (pela URL)
-            if url_noticia not in memoria:
-                print(f"🎯 ALVO ENCONTRADO [{keyword_achada.upper()}]: {titulo}")
-                print(f"   Link: {URL_ALVO}{url_noticia}\n")
-                
-                # Adiciona à memória para não repetir
-                memoria.append(url_noticia)
+            if url_final not in memoria:
+                print(f"   🎯 NOVO ALVO [{match.upper()}]: {titulo}")
+                memoria.append(url_final)
                 novas_descobertas.append(titulo)
 
-    # 5. Salvar o progresso
     if novas_descobertas:
         salvar_memoria(memoria)
-        print(f"✅ Varredura concluída. {len(novas_descobertas)} novos alvos registrados.")
+        print(f"✅ Sucesso! {len(novas_descobertas)} novos itens salvos em:\n   📄 {ARQUIVO_MEMORIA}")
     else:
-        print("💤 Nada novo sob o sol. O Sniper voltará em breve.")
+        # Força a criação do arquivo mesmo se não achar nada, pra você ver que funciona
+        if not ARQUIVO_MEMORIA.exists():
+            salvar_memoria(memoria)
+            print(f"⚠️ Nenhuma notícia nova, mas criei o arquivo de memória inicial.")
+        print(f"💤 Sem novidades. (Verificado contra base em: {ARQUIVO_MEMORIA.name})")
 
 if __name__ == "__main__":
     caçar_noticias()

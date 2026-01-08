@@ -14,10 +14,10 @@ Este repositório opera através de **Agentes Especializados** e uma infraestrut
 ### 🛰️ /Agentes_Dados
 > Coleta e processamento de notícias e oportunidades (Scraping/RSS).
 
-- **[career_hunter.py](./Agentes_Dados/career_hunter.py)**: (2026-01-08) | *NÍVEL 2: Agente de Monitoramento de Mercado FUNÇÃO: Rastreia e filtra oportunidades de carreira em portais especializados. CONCEITOS: Web Crawling, BeautifulSoup4, Automação de Busca, Persistência de Dados.*
+- **[career_hunter.py](./Agentes_Dados/career_hunter.py)**: (2026-01-08) | *NÍVEL 2: Career Hunter STATUS: Corrigido com Debug de Caminhos Absolutos.*
 - **[cotacao_dolar.py](./Agentes_Dados/cotacao_dolar.py)**: (2026-01-08) | *NÍVEL 2: Agente Financeiro Autônomo FUNÇÃO: Captura cotações em tempo real via API e gera séries históricas. CONCEITOS: Integração de APIs REST, Configuração Centralizada, Persistência CSV.*
-- **[global_news_sniper.py](./Agentes_Dados/global_news_sniper.py)**: (2026-01-08) | *NÍVEL 2: Agente de Inteligência de Dados FUNÇÃO: Coleta e processa notícias internacionais via RSS (Feedparser). CONCEITOS: RSS Parsing, Normalização de Dados, Persistência Estruturada.*
-- **[news_sniper.py](./Agentes_Dados/news_sniper.py)**: (2026-01-08) | *NÍVEL 2: Agente de Extração de Dados FUNÇÃO: Coleta notícias de fontes globais via Web Scraping. CONCEITOS: BeautifulSoup, requests, persistência em JSON.*
+- **[global_news_sniper.py](./Agentes_Dados/global_news_sniper.py)**: (2026-01-08) | *NÍVEL 2: Agente de Inteligência de Dados (Global Sniper) FUNÇÃO: Coleta e processa notícias internacionais via RSS (Feedparser). CONCEITOS: RSS Parsing, Normalização de Dados, Persistência JSON.*
+- **[news_sniper.py](./Agentes_Dados/news_sniper.py)**: (2026-01-08) | *NÍVEL 2: Agente de Extração de Dados (News Sniper) STATUS: Corrigido com Debug de Caminhos Absolutos.*
 
 ### 🖥️ /Agentes_Monitor
 > Monitoramento de integridade web e diagnóstico de hardware/OS.
@@ -53,7 +53,9 @@ Este repositório opera através de **Agentes Especializados** e uma infraestrut
 
 - **[csv/cotacao_dolar.csv](./Data/csv/cotacao_dolar.csv)**: (2026-01-08)
 - **[json/auditoria_ssl.json](./Data/json/auditoria_ssl.json)**: (2026-01-08)
+- **[json/global_news_memory.json](./Data/json/global_news_memory.json)**: Novo
 - **[json/memoria_world.json](./Data/json/memoria_world.json)**: (2026-01-08)
+- **[json/news_sniper_memory.json](./Data/json/news_sniper_memory.json)**: Novo
 - **[json/sentinela_status.json](./Data/json/sentinela_status.json)**: (2026-01-08)
 - **[json/vagas_encontradas.json](./Data/json/vagas_encontradas.json)**: (2026-01-08)
 - **[json/web_monitor_results.json](./Data/json/web_monitor_results.json)**: (2026-01-08)
@@ -61,8 +63,7 @@ Este repositório opera através de **Agentes Especializados** e uma infraestrut
 ### 📝 /Logs
 > Registro de atividades, histórico de erros e auditoria.
 
-- **[sentinela.log](./Logs/sentinela.log)**: Novo
-- **[system_toolbox.log](./Logs/system_toolbox.log)**: Novo
+- *Aguardando geração de dados ou scripts.*
 
 ### 📦 /Assets
 > Recursos estáticos, modelos e arquivos fixos do sistema.
