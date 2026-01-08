@@ -48,16 +48,20 @@ Use este README como um **Índice Dinâmico** para encontrar a ferramenta certa 
 - ⚙️ **[json/sentinela_status.json](./Data/json/sentinela_status.json)** (2026-01-08)
 - ⚙️ **[json/vagas_encontradas.json](./Data/json/vagas_encontradas.json)** (2026-01-08)
 - ⚙️ **[json/web_monitor_results.json](./Data/json/web_monitor_results.json)** (2026-01-08)
+- 📂 **[output_audio/ (Estrutura)](./Data/output_audio)**  | *Diretório de Saída (Conteúdo gerado ignorado pelo Git)*
+- 📂 **[output_images/ (Estrutura)](./Data/output_images)**  | *Diretório de Saída (Conteúdo gerado ignorado pelo Git)*
 - 📄 **[csv/cotacao_dolar.csv](./Data/csv/cotacao_dolar.csv)** (2026-01-08)
 - 📄 **[input_audio/referencia.m4a](./Data/input_audio/referencia.m4a)** (2026-01-08)
 - 📄 **[input_audio/roteiro.txt](./Data/input_audio/roteiro.txt)** (2026-01-08)
-- 🔊 **[input_audio/referencia.wav](./Data/input_audio/referencia.wav)** (Novo)
-- 🖼️ **[input_images/minha_foto.jpg](./Data/input_images/minha_foto.jpg)** (Novo)
+- 🔊 **[input_audio/referencia.wav](./Data/input_audio/referencia.wav)** (Novo/Local)
+- 🔊 **[output_audio/audio_clonado_final.wav](./Data/output_audio/audio_clonado_final.wav)** (Novo/Local)
+- 🖼️ **[input_images/minha_foto.jpg](./Data/input_images/minha_foto.jpg)** (Novo/Local)
+- 🖼️ **[output_images/perfil_minha_foto.png](./Data/output_images/perfil_minha_foto.png)** (Novo/Local)
 
 ### 📝 /Logs
 > Histórico de execução e auditoria.
 
-- *Pasta vazia ou apenas arquivos ignorados.*
+- 📂 **[/ (Estrutura)](./Logs/)**  | *Diretório de Saída (Conteúdo gerado ignorado pelo Git)*
 
 ---
 ### 🛠️ Engenharia e Stack

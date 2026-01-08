@@ -2,5 +2,5 @@
 
 > Histórico de execução e auditoria.
 
-## 🧰 Ferramentas Disponíveis
-- *Pasta vazia ou apenas arquivos ignorados.*
+## 🧰 Estrutura e Ferramentas
+- 📂 **[/ (Estrutura)](./)**  | *Diretório de Saída (Conteúdo gerado ignorado pelo Git)*

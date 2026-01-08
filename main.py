@@ -3,7 +3,7 @@
 ORQUESTRADOR: main.py
 FUNÇÃO: Gerador de Documentação Viva (Living Documentation).
 DESCRIÇÃO: Varre a estrutura do projeto e atualiza todos os README.md automaticamente.
-STATUS: Operacional - Modo Bibliotecário
+STATUS: Operacional - Modo Bibliotecário (Com suporte a pastas de Output)
 """
 
 import os
@@ -12,8 +12,8 @@ import subprocess
 from pathlib import Path
 
 # --- CONFIGURAÇÕES DE IGNORAR ---
-# Pastas que o documentador NUNCA deve olhar
-DIRS_IGNORADOS = {'.venv', '__pycache__', '.git', 'output_audio', 'output_images'}
+# Apenas lixo de sistema e controle de versão. Pastas de output agora SÃO PERMITIDAS.
+DIRS_IGNORADOS = {'.venv', '__pycache__', '.git', '.idea', '.vscode'}
 
 # --- 1. MANIFESTO DO PROJETO ---
 MANIFESTO = """# 🛠️ ToolBox - Ecossistema de Agentes Autônomos
@@ -65,11 +65,9 @@ def extrair_docstring(filepath):
         with open(filepath, 'r', encoding='utf-8') as f:
             conteudo = f.read()
             if filepath.endswith('.py'):
-                # Busca texto entre três aspas duplas
                 match = re.search(r'"""(.*?)"""', conteudo, re.DOTALL)
                 if match: return f" | *{match.group(1).strip().replace(chr(10), ' ')}*"
             elif filepath.endswith('.sh'):
-                # Pega linhas de comentário iniciais
                 comentarios = []
                 for l in conteudo.split('\n'):
                     if l.startswith('#') and '!' not in l:
@@ -83,42 +81,54 @@ def get_git_info(filepath):
     try:
         cmd = ['git', 'log', '-1', '--format=%cd', '--date=short', filepath]
         result = subprocess.run(cmd, capture_output=True, text=True)
-        return f"({result.stdout.strip()})" if result.stdout.strip() else "(Novo)"
+        return f"({result.stdout.strip()})" if result.stdout.strip() else "(Novo/Local)"
     except: return "(Local)"
 
 def gerar_lista_arquivos(pasta_raiz, link_relativo=True):
     linhas = []
     
-    # os.walk varre tudo, precisamos filtrar o .venv na força bruta
+    # Varredura
     for root, dirs, files in os.walk(pasta_raiz):
-        # Modifica a lista 'dirs' in-place para impedir que o walk entre no .venv e ignorados
+        # Filtra pastas ignoradas
         dirs[:] = [d for d in dirs if d not in DIRS_IGNORADOS]
         
         for f in files:
-            if f == 'README.md' or f.startswith('.'): continue # Ignora arquivos ocultos e o próprio readme
+            # Regra de Ouro: Ignora ocultos, EXCETO .gitkeep
+            if f.startswith('.') and f != '.gitkeep': continue 
+            if f == 'README.md': continue
             
             caminho_completo = os.path.join(root, f)
             nome_exibicao = os.path.relpath(caminho_completo, pasta_raiz)
             
-            # Pega metadados
+            # Definição de Ícones e Descrições
+            icone = "📄"
             info_git = get_git_info(caminho_completo)
             desc = extrair_docstring(caminho_completo)
             
-            # Cria o link Markdown
-            prefixo = f"./{pasta_raiz}/" if not link_relativo else "./"
-            link = f"{prefixo}{nome_exibicao}"
-            
-            # Ícone baseado na extensão
-            icone = "📄"
-            if f.endswith('.py'): icone = "🐍"
+            if f == '.gitkeep':
+                icone = "📂"
+                # Remove o nome .gitkeep da exibição para ficar mais limpo, mostra a pasta
+                pasta_pai = os.path.dirname(nome_exibicao)
+                nome_exibicao = f"{pasta_pai}/ (Estrutura)"
+                desc = " | *Diretório de Saída (Conteúdo gerado ignorado pelo Git)*"
+            elif f.endswith('.py'): icone = "🐍"
             elif f.endswith('.sh'): icone = "🐚"
             elif f.endswith(('.wav', '.mp3')): icone = "🔊"
             elif f.endswith(('.jpg', '.png')): icone = "🖼️"
             elif f.endswith('.json'): icone = "⚙️"
             
-            linhas.append(f"- {icone} **[{nome_exibicao}]({link})** {info_git}{desc}")
+            # Cria o link Markdown
+            prefixo = f"./{pasta_raiz}/" if not link_relativo else "./"
+            # Se for gitkeep, o link aponta para a pasta onde ele está
+            link = f"{prefixo}{os.path.dirname(os.path.relpath(caminho_completo, pasta_raiz))}" if f == '.gitkeep' else f"{prefixo}{nome_exibicao}"
+            
+            # Formatação da linha
+            if f == '.gitkeep':
+                 linhas.append(f"- {icone} **[{nome_exibicao}]({link})** {desc}")
+            else:
+                 linhas.append(f"- {icone} **[{nome_exibicao}]({link})** {info_git}{desc}")
 
-    return sorted(linhas) if linhas else ["- *Pasta vazia ou apenas arquivos ignorados.*"]
+    return sorted(linhas) if linhas else ["- *Pasta vazia.*"]
 
 # --- 5. EXECUÇÃO ---
 
@@ -143,10 +153,10 @@ def main():
     for pasta in DEFINICOES.keys():
         if os.path.exists(pasta):
             with open(os.path.join(pasta, "README.md"), 'w', encoding='utf-8') as f:
-                f.write(f"# 📁 Módulo: {pasta}\n\n> {DEFINICOES[pasta]}\n\n## 🧰 Ferramentas Disponíveis\n")
+                f.write(f"# 📁 Módulo: {pasta}\n\n> {DEFINICOES[pasta]}\n\n## 🧰 Estrutura e Ferramentas\n")
                 f.write("\n".join(gerar_lista_arquivos(pasta, link_relativo=True)))
 
-    print("✅ Documentação Viva atualizada com sucesso!")
+    print("✅ Documentação Viva atualizada (Outputs incluídos)!")
 
 if __name__ == "__main__":
     main()
