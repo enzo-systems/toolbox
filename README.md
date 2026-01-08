@@ -1,13 +1,13 @@
 # 🛠️ ToolBox - Ecossistema de Agentes Autônomos
 
 ### 📂 Visão Geral e Arquitetura
-Este repositório foi reestruturado para operar através de **Agentes Especializados**. Cada diretório representa um domínio de competência técnica, integrando automação modular sob uma arquitetura de níveis.
+Este repositório opera através de **Agentes Especializados** e uma infraestrutura de dados organizada por tipos e domínios.
 
 * **Agentes de Dados:** Inteligência de busca, scraping e coleta de dados.
 * **Agentes de Monitor:** Integridade de redes, latência e diagnóstico de sistemas.
 * **Agentes de Visao:** Processamento de imagem, higienização e privacidade.
 * **Agentes de Voz:** Síntese vocal e inteligência auditiva.
-* **Infraestrutura:** Gestão de logs, configurações centralizadas e automação bash.
+* **Infraestrutura:** Gestão de logs, configurações e persistência de dados.
 
 ---
 
@@ -49,23 +49,27 @@ Este repositório foi reestruturado para operar através de **Agentes Especializ
 - **[settings.py](./Config/settings.py)**: (2026-01-08) | *NÍVEL 1: Gestor de Ambiente e Caminhos (Versão Agentes V2) FUNÇÃO: Centraliza a inteligência de diretórios e separação por tipo de dado. CONCEITOS: Abstração de Caminhos, Configuração Centralizada, Higiene de Dados.*
 
 ### 📊 /Data
-> Repositório central de entrada (input) e saída (output) de dados.
+> Repositório central organizado por subpastas (csv, json, images, audio).
 
-- *Pasta estruturada.*
+- **[csv/cotacao_dolar.csv](./Data/csv/cotacao_dolar.csv)**: (2026-01-08)
+- **[json/auditoria_ssl.json](./Data/json/auditoria_ssl.json)**: (2026-01-08)
+- **[json/memoria_world.json](./Data/json/memoria_world.json)**: (2026-01-08)
+- **[json/sentinela_status.json](./Data/json/sentinela_status.json)**: (2026-01-08)
+- **[json/vagas_encontradas.json](./Data/json/vagas_encontradas.json)**: (2026-01-08)
+- **[json/web_monitor_results.json](./Data/json/web_monitor_results.json)**: (2026-01-08)
 
 ### 📝 /Logs
-> Registro de atividades e rastreabilidade de processos.
+> Registro de atividades, histórico de erros e auditoria.
 
-- *Pasta estruturada.*
+- **[sentinela.log](./Logs/sentinela.log)**: Novo
+- **[system_toolbox.log](./Logs/system_toolbox.log)**: Novo
 
 ### 📦 /Assets
-> Recursos estáticos e arquivos fixos do sistema.
+> Recursos estáticos, modelos e arquivos fixos do sistema.
 
-- *Pasta estruturada.*
+- *Aguardando geração de dados ou scripts.*
 
 ---
 ### 🛠️ Stack Tecnológico
-- **Linguagem:** Python 3.x / Bash
-- **OS:** Linux (Fedora / Debian / Ubuntu)
-- **Libs Principais:** `requests`, `BeautifulSoup4`, `Pillow (PIL)`, `gTTS`, `logging`.
-- **Arquitetura:** Centralização de Caminhos via `Pathlib`, Persistência em JSON/CSV e Pipeline I/O.
+- **Base:** Python 3.x / Linux
+- **Arquitetura:** Agentes Independentes com Persistência Estruturada.

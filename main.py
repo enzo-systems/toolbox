@@ -2,7 +2,7 @@
 """
 ORQUESTRADOR: main.py
 FUNÇÃO: Ponto de entrada da ToolBox. Gerencia documentação e integridade do sistema.
-STATUS: Operacional - Arquitetura por Domínios
+STATUS: Operacional - Auditoria Profunda (Deep Scan)
 """
 
 import os
@@ -10,22 +10,22 @@ import re
 import subprocess
 from pathlib import Path
 
-# --- 1. MANIFESTO DO PROJETO (VISÃO POR AGENTES) ---
+# --- 1. MANIFESTO DO PROJETO ---
 MANIFESTO = """# 🛠️ ToolBox - Ecossistema de Agentes Autônomos
 
 ### 📂 Visão Geral e Arquitetura
-Este repositório foi reestruturado para operar através de **Agentes Especializados**. Cada diretório representa um domínio de competência técnica, integrando automação modular sob uma arquitetura de níveis.
+Este repositório opera através de **Agentes Especializados** e uma infraestrutura de dados organizada por tipos e domínios.
 
 * **Agentes de Dados:** Inteligência de busca, scraping e coleta de dados.
 * **Agentes de Monitor:** Integridade de redes, latência e diagnóstico de sistemas.
 * **Agentes de Visao:** Processamento de imagem, higienização e privacidade.
 * **Agentes de Voz:** Síntese vocal e inteligência auditiva.
-* **Infraestrutura:** Gestão de logs, configurações centralizadas e automação bash.
+* **Infraestrutura:** Gestão de logs, configurações e persistência de dados.
 
 ---
 """
 
-# --- 2. NOVAS DEFINIÇÕES POR DOMÍNIO ---
+# --- 2. DEFINIÇÕES POR DOMÍNIO ---
 DEFINICOES = {
     "Agentes_Dados": "Coleta e processamento de notícias e oportunidades (Scraping/RSS).",
     "Agentes_Monitor": "Monitoramento de integridade web e diagnóstico de hardware/OS.",
@@ -33,9 +33,9 @@ DEFINICOES = {
     "Agentes_Voz": "Conversão de texto em fala (TTS) e inteligência auditiva.",
     "Scripts": "Utilitários de manutenção, backup e automação de infraestrutura.",
     "Config": "Cérebro do projeto (Settings, caminhos absolutos e variáveis).",
-    "Data": "Repositório central de entrada (input) e saída (output) de dados.",
-    "Logs": "Registro de atividades e rastreabilidade de processos.",
-    "Assets": "Recursos estáticos e arquivos fixos do sistema."
+    "Data": "Repositório central organizado por subpastas (csv, json, images, audio).",
+    "Logs": "Registro de atividades, histórico de erros e auditoria.",
+    "Assets": "Recursos estáticos, modelos e arquivos fixos do sistema."
 }
 
 MAPA_MODULOS = {
@@ -49,15 +49,6 @@ MAPA_MODULOS = {
     "Logs": "### 📝 /Logs",
     "Assets": "### 📦 /Assets"
 }
-
-STACK_TECNOLOGICO = """
----
-### 🛠️ Stack Tecnológico
-- **Linguagem:** Python 3.x / Bash
-- **OS:** Linux (Fedora / Debian / Ubuntu)
-- **Libs Principais:** `requests`, `BeautifulSoup4`, `Pillow (PIL)`, `gTTS`, `logging`.
-- **Arquitetura:** Centralização de Caminhos via `Pathlib`, Persistência em JSON/CSV e Pipeline I/O.
-"""
 
 # --- 3. LÓGICA DE EXTRAÇÃO E AUDITORIA ---
 
@@ -79,38 +70,59 @@ def get_git_info(filepath):
     try:
         cmd = ['git', 'log', '-1', '--format=%s (%cd)', '--date=short', filepath]
         result = subprocess.run(cmd, capture_output=True, text=True)
-        return result.stdout.strip() if result.stdout.strip() else "Aguardando commit"
+        return result.stdout.strip() if result.stdout.strip() else "Novo"
     except: return "Novo"
 
 def gerar_lista_arquivos(pasta, link_relativo=True):
     if not os.path.exists(pasta): return []
-    extensoes = ('.py', '.sh', '.json', '.yml')
-    arquivos = sorted([f for f in os.listdir(pasta) if f.endswith(extensoes) and f != 'README.md'])
+    
+    # Extensões permitidas (Ampliadas para incluir dados e logs)
+    ext_codigo = ('.py', '.sh')
+    ext_dados = ('.json', '.csv', '.log', '.jpg', '.png', '.mp3', '.webp')
+    extensoes = ext_codigo + ext_dados
+    
+    arquivos_encontrados = []
+    
+    # Busca recursiva para capturar subpastas (importante para Data/)
+    for root, dirs, files in os.walk(pasta):
+        for f in files:
+            if f.endswith(extensoes) and f != 'README.md':
+                caminho_completo = os.path.join(root, f)
+                arquivos_encontrados.append(caminho_completo)
+
+    arquivos_encontrados.sort()
     
     linhas = []
-    for arq in arquivos:
-        caminho = os.path.join(pasta, arq)
+    for caminho in arquivos_encontrados:
+        # Nome exibido será relativo à pasta (ex: json/status.json)
+        nome_exibicao = os.path.relpath(caminho, pasta)
         git_info = get_git_info(caminho)
-        desc = extrair_docstring(caminho)
+        desc = extrair_docstring(caminho) if caminho.endswith(ext_codigo) else ""
+        
         prefixo = f"./{pasta}/" if not link_relativo else "./"
-        linhas.append(f"- **[{arq}]({prefixo}{arq})**: {git_info}{desc}")
-    return linhas if linhas else ["- *Pasta estruturada.*"]
+        link = f"{prefixo}{nome_exibicao}"
+        
+        linhas.append(f"- **[{nome_exibicao}]({link})**: {git_info}{desc}")
+        
+    return linhas if linhas else ["- *Aguardando geração de dados ou scripts.*"]
 
 # --- 4. EXECUÇÃO DO ORQUESTRADOR ---
 
 def main():
-    print(f"🚀 Iniciando Orquestrador ToolBox em: {os.getcwd()}")
+    print(f"🚀 Iniciando Auditoria Deep Scan em: {os.getcwd()}")
     
     conteudo_raiz = MANIFESTO
 
     for pasta, header in MAPA_MODULOS.items():
         if os.path.exists(pasta):
+            print(f"📁 Mapeando: {pasta}...")
             conteudo_raiz += f"\n{header}\n> {DEFINICOES[pasta]}\n\n"
             conteudo_raiz += "\n".join(gerar_lista_arquivos(pasta, False)) + "\n"
 
-    conteudo_raiz += STACK_TECNOLOGICO
+    # Adiciona o rodapé técnico
+    conteudo_raiz += "\n---\n### 🛠️ Stack Tecnológico\n- **Base:** Python 3.x / Linux\n- **Arquitetura:** Agentes Independentes com Persistência Estruturada."
 
-    # Salva o README principal na raiz
+    # Salva o README principal
     with open('README.md', 'w', encoding='utf-8') as f:
         f.write(conteudo_raiz)
     
@@ -118,10 +130,10 @@ def main():
     for pasta in DEFINICOES.keys():
         if os.path.exists(pasta):
             with open(os.path.join(pasta, "README.md"), 'w', encoding='utf-8') as f:
-                f.write(f"# 📁 /{pasta}\n\n> {DEFINICOES[pasta]}\n\n## 📜 Arquivos\n")
+                f.write(f"# 📁 /{pasta}\n\n> {DEFINICOES[pasta]}\n\n## 📜 Conteúdo Detectado\n")
                 f.write("\n".join(gerar_lista_arquivos(pasta, True)))
 
-    print("✅ Auditoria Concluída! README.md e sub-diretórios sincronizados com a Nova Arquitetura.")
+    print("✅ Sucesso! README.md agora reflete toda a hierarquia de Agentes e Dados.")
 
 if __name__ == "__main__":
     main()

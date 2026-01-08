@@ -1,6 +1,6 @@
 # 📁 /Assets
 
-> Recursos estáticos e arquivos fixos do sistema.
+> Recursos estáticos, modelos e arquivos fixos do sistema.
 
-## 📜 Arquivos
-- *Pasta estruturada.*
+## 📜 Conteúdo Detectado
+- *Aguardando geração de dados ou scripts.*

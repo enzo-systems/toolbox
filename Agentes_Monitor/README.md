@@ -2,7 +2,7 @@
 
 > Monitoramento de integridade web e diagnóstico de hardware/OS.
 
-## 📜 Arquivos
+## 📜 Conteúdo Detectado
 - **[sentinela.py](./sentinela.py)**: (2026-01-08) | *NÍVEL 2: Sentinela de Infraestrutura FUNÇÃO: Vigia a conectividade e gerencia a rotatividade de logs do sistema. CONCEITOS: I/O de Sistema, RotatingFileHandler, Daemonize Simulation.*
 - **[ssl_hunter.py](./ssl_hunter.py)**: (2026-01-08) | *NÍVEL 2: Auditor de Criptografia e Redes FUNÇÃO: Varredura e validação de certificados SSL/TLS em domínios externos. CONCEITOS: pyOpenSSL, Protocolos de Segurança, Persistência de Auditoria.*
 - **[system_expert.py](./system_expert.py)**: (2026-01-08) | *NÍVEL 1: Agente de Diagnóstico de Infraestrutura FUNÇÃO: Analisa comandos Linux e gera documentação formatada para comunidades. CONCEITOS: Shell Integration, Log Parsing, Integração com API TLDR.*

@@ -1,6 +1,11 @@
 # 📁 /Data
 
-> Repositório central de entrada (input) e saída (output) de dados.
+> Repositório central organizado por subpastas (csv, json, images, audio).
 
-## 📜 Arquivos
-- *Pasta estruturada.*
+## 📜 Conteúdo Detectado
+- **[csv/cotacao_dolar.csv](./csv/cotacao_dolar.csv)**: (2026-01-08)
+- **[json/auditoria_ssl.json](./json/auditoria_ssl.json)**: (2026-01-08)
+- **[json/memoria_world.json](./json/memoria_world.json)**: (2026-01-08)
+- **[json/sentinela_status.json](./json/sentinela_status.json)**: (2026-01-08)
+- **[json/vagas_encontradas.json](./json/vagas_encontradas.json)**: (2026-01-08)
+- **[json/web_monitor_results.json](./json/web_monitor_results.json)**: (2026-01-08)
