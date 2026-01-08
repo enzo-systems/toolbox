@@ -1,6 +1,6 @@
-# 📁 /Logs
+# 📁 Módulo: Logs
 
-> Registro de atividades, histórico de erros e auditoria.
+> Histórico de execução e auditoria.
 
-## 📜 Conteúdo Detectado
-- *Aguardando geração de dados ou scripts.*
+## 🧰 Ferramentas Disponíveis
+- *Pasta vazia ou apenas arquivos ignorados.*

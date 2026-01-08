@@ -1,8 +1,9 @@
 #!/usr/bin/env python3 
 """
 ORQUESTRADOR: main.py
-FUNÇÃO: Ponto de entrada da ToolBox. Gerencia documentação e integridade do sistema.
-STATUS: Operacional - Auditoria Profunda & Stack Sênior
+FUNÇÃO: Gerador de Documentação Viva (Living Documentation).
+DESCRIÇÃO: Varre a estrutura do projeto e atualiza todos os README.md automaticamente.
+STATUS: Operacional - Modo Bibliotecário
 """
 
 import os
@@ -10,149 +11,142 @@ import re
 import subprocess
 from pathlib import Path
 
+# --- CONFIGURAÇÕES DE IGNORAR ---
+# Pastas que o documentador NUNCA deve olhar
+DIRS_IGNORADOS = {'.venv', '__pycache__', '.git', 'output_audio', 'output_images'}
+
 # --- 1. MANIFESTO DO PROJETO ---
 MANIFESTO = """# 🛠️ ToolBox - Ecossistema de Agentes Autônomos
 
-### 📂 Visão Geral e Arquitetura
-Este repositório opera através de **Agentes Especializados** e uma infraestrutura de dados organizada por tipos e domínios.
-
-* **Agentes de Dados:** Inteligência de busca, scraping e coleta de dados.
-* **Agentes de Monitor:** Integridade de redes, latência e diagnóstico de sistemas.
-* **Agentes de Visao:** Processamento de imagem, higienização e privacidade.
-* **Agentes de Voz:** Síntese vocal e inteligência auditiva.
-* **Infraestrutura:** Gestão de logs, configurações e persistência de dados.
+### 📂 Visão Geral
+Este repositório é uma **Caixa de Ferramentas Modular**. Cada pasta contém agentes especializados que funcionam de forma independente.
+Use este README como um **Índice Dinâmico** para encontrar a ferramenta certa para sua tarefa.
 
 ---
 """
 
-# --- 2. STACK TECNOLÓGICO DETALHADO ---
+# --- 2. STACK TECNOLÓGICO ---
 STACK_TECNOLOGICO = """
 ---
-### 🛠️ Stack Tecnológico e Engenharia
-- **Core Executivo:** Python 3.x & Bash Scripting (Automação de Infraestrutura).
-- **Domínios de Inteligência:**
-    - `Requests` & `BeautifulSoup4`: Engenharia de extração e consumo de APIs REST.
-    - `Pillow (PIL)`: Pipeline de processamento de imagem e manipulação de metadados.
-    - `gTTS`: Síntese de voz e processamento de fluxos de áudio.
-- **Resiliência e Monitoramento:**
-    - `Socket`: Diagnósticos de conectividade em baixo nível (TCP/UDP).
-    - `Logging (RotatingFileHandler)`: Gestão de logs cíclicos com controle de volumetria.
-    - `Subprocess`: Orquestração de comandos do sistema operacional (Fedora/Linux).
-- **Arquitetura de Dados:**
-    - **Persistência Estruturada:** Armazenamento em CSV (Séries temporais) e JSON (Status/Auditoria).
-    - **Estratégia de I/O:** Separação rigorosa entre `input_` (Matéria-prima) e `output_` (Processados).
-    - **Portabilidade:** Gestão de caminhos absolutos via `Pathlib` para integridade entre ambientes.
+### 🛠️ Engenharia e Stack
+- **Linguagem:** Python 3.10+
+- **Documentação:** Gerada automaticamente via `main.py`.
+- **Estrutura:**
+    - `Agentes_*`: Módulos funcionais independentes.
+    - `Data`: Armazenamento de inputs (matéria-prima) e outputs (resultados).
 """
 
-# --- 3. DEFINIÇÕES POR DOMÍNIO ---
+# --- 3. DEFINIÇÕES ---
 DEFINICOES = {
-    "Agentes_Dados": "Coleta e processamento de notícias e oportunidades (Scraping/RSS).",
-    "Agentes_Monitor": "Monitoramento de integridade web e diagnóstico de hardware/OS.",
-    "Agentes_Visao": "Processamento de imagens, filtros e remoção de metadados.",
-    "Agentes_Voz": "Conversão de texto em fala (TTS) e inteligência auditiva.",
-    "Scripts": "Utilitários de manutenção, backup e automação de infraestrutura.",
-    "Config": "Cérebro do projeto (Settings, caminhos absolutos e variáveis).",
-    "Data": "Repositório central organizado por subpastas (csv, json, images, audio).",
-    "Logs": "Registro de atividades, histórico de erros e auditoria.",
-    "Assets": "Recursos estáticos, modelos e arquivos fixos do sistema."
+    "Agentes_Dados": "Coleta de dados, Scraping e Processamento de RSS.",
+    "Agentes_Visao": "Computer Vision: Análise, filtros e manipulação de imagens.",
+    "Agentes_Voz": "Síntese de Voz (TTS) e Clonagem de Áudio (XTTS).",
+    "Agentes_Monitor": "Monitoramento de sistema, rede e hardware.",
+    "Scripts": "Automação de infraestrutura e manutenção do OS.",
+    "Data": "Repositório de Arquivos (Inputs e Outputs).",
+    "Logs": "Histórico de execução e auditoria."
 }
 
 MAPA_MODULOS = {
     "Agentes_Dados": "### 🛰️ /Agentes_Dados",
-    "Agentes_Monitor": "### 🖥️ /Agentes_Monitor",
     "Agentes_Visao": "### 👁️ /Agentes_Visao",
     "Agentes_Voz": "### 🎙️ /Agentes_Voz",
+    "Agentes_Monitor": "### 🖥️ /Agentes_Monitor",
     "Scripts": "### 📜 /Scripts",
-    "Config": "### ⚙️ /Config",
     "Data": "### 📊 /Data",
-    "Logs": "### 📝 /Logs",
-    "Assets": "### 📦 /Assets"
+    "Logs": "### 📝 /Logs"
 }
 
-# --- 4. LÓGICA DE EXTRAÇÃO E AUDITORIA ---
+# --- 4. FUNÇÕES DE EXTRAÇÃO ---
 
 def extrair_docstring(filepath):
+    """Lê o cabeçalho do arquivo para explicar o que ele faz."""
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             conteudo = f.read()
             if filepath.endswith('.py'):
+                # Busca texto entre três aspas duplas
                 match = re.search(r'"""(.*?)"""', conteudo, re.DOTALL)
-                if match: return f" | *{match.group(1).strip().replace('\n', ' ')}*"
+                if match: return f" | *{match.group(1).strip().replace(chr(10), ' ')}*"
             elif filepath.endswith('.sh'):
+                # Pega linhas de comentário iniciais
+                comentarios = []
                 for l in conteudo.split('\n'):
-                    if l.startswith('#') and '!' not in l and len(l.strip()) > 5:
-                        return f" | *{l.replace('#', '').strip()}*"
+                    if l.startswith('#') and '!' not in l:
+                        comentarios.append(l.replace('#', '').strip())
+                if comentarios: return f" | *{' '.join(comentarios[:1])}*"
     except: pass
     return ""
 
 def get_git_info(filepath):
+    """Pega a data da última modificação real no Git."""
     try:
-        cmd = ['git', 'log', '-1', '--format=%s (%cd)', '--date=short', filepath]
+        cmd = ['git', 'log', '-1', '--format=%cd', '--date=short', filepath]
         result = subprocess.run(cmd, capture_output=True, text=True)
-        return result.stdout.strip() if result.stdout.strip() else "Novo"
-    except: return "Novo"
+        return f"({result.stdout.strip()})" if result.stdout.strip() else "(Novo)"
+    except: return "(Local)"
 
-def gerar_lista_arquivos(pasta, link_relativo=True):
-    if not os.path.exists(pasta): return []
-    
-    # Extensões permitidas (Ampliadas para incluir dados e logs)
-    ext_codigo = ('.py', '.sh')
-    ext_dados = ('.json', '.csv', '.log', '.jpg', '.png', '.mp3', '.webp')
-    extensoes = ext_codigo + ext_dados
-    
-    arquivos_encontrados = []
-    
-    # Busca recursiva para capturar subpastas (importante para Data/)
-    for root, dirs, files in os.walk(pasta):
-        for f in files:
-            if f.endswith(extensoes) and f != 'README.md':
-                caminho_completo = os.path.join(root, f)
-                arquivos_encontrados.append(caminho_completo)
-
-    arquivos_encontrados.sort()
-    
+def gerar_lista_arquivos(pasta_raiz, link_relativo=True):
     linhas = []
-    for caminho in arquivos_encontrados:
-        # Nome exibido será relativo à pasta (ex: json/status.json)
-        nome_exibicao = os.path.relpath(caminho, pasta)
-        git_info = get_git_info(caminho)
-        desc = extrair_docstring(caminho) if caminho.endswith(ext_codigo) else ""
+    
+    # os.walk varre tudo, precisamos filtrar o .venv na força bruta
+    for root, dirs, files in os.walk(pasta_raiz):
+        # Modifica a lista 'dirs' in-place para impedir que o walk entre no .venv e ignorados
+        dirs[:] = [d for d in dirs if d not in DIRS_IGNORADOS]
         
-        prefixo = f"./{pasta}/" if not link_relativo else "./"
-        link = f"{prefixo}{nome_exibicao}"
-        
-        linhas.append(f"- **[{nome_exibicao}]({link})**: {git_info}{desc}")
-        
-    return linhas if linhas else ["- *Aguardando geração de dados ou scripts.*"]
+        for f in files:
+            if f == 'README.md' or f.startswith('.'): continue # Ignora arquivos ocultos e o próprio readme
+            
+            caminho_completo = os.path.join(root, f)
+            nome_exibicao = os.path.relpath(caminho_completo, pasta_raiz)
+            
+            # Pega metadados
+            info_git = get_git_info(caminho_completo)
+            desc = extrair_docstring(caminho_completo)
+            
+            # Cria o link Markdown
+            prefixo = f"./{pasta_raiz}/" if not link_relativo else "./"
+            link = f"{prefixo}{nome_exibicao}"
+            
+            # Ícone baseado na extensão
+            icone = "📄"
+            if f.endswith('.py'): icone = "🐍"
+            elif f.endswith('.sh'): icone = "🐚"
+            elif f.endswith(('.wav', '.mp3')): icone = "🔊"
+            elif f.endswith(('.jpg', '.png')): icone = "🖼️"
+            elif f.endswith('.json'): icone = "⚙️"
+            
+            linhas.append(f"- {icone} **[{nome_exibicao}]({link})** {info_git}{desc}")
 
-# --- 5. EXECUÇÃO DO ORQUESTRADOR ---
+    return sorted(linhas) if linhas else ["- *Pasta vazia ou apenas arquivos ignorados.*"]
+
+# --- 5. EXECUÇÃO ---
 
 def main():
-    print(f"🚀 Iniciando Auditoria Deep Scan em: {os.getcwd()}")
+    print(f"📚 Iniciando Bibliotecário ToolBox em: {os.getcwd()}")
     
+    # 1. Gera o README.md Principal (Raiz)
     conteudo_raiz = MANIFESTO
-
+    
     for pasta, header in MAPA_MODULOS.items():
         if os.path.exists(pasta):
-            print(f"📁 Mapeando: {pasta}...")
-            conteudo_raiz += f"\n{header}\n> {DEFINICOES[pasta]}\n\n"
-            conteudo_raiz += "\n".join(gerar_lista_arquivos(pasta, False)) + "\n"
-
-    # Adiciona o Stack Tecnológico Detalhado ao final
+            print(f"   - Indexando: {pasta}...")
+            conteudo_raiz += f"\n{header}\n> {DEFINICOES.get(pasta, '')}\n\n"
+            conteudo_raiz += "\n".join(gerar_lista_arquivos(pasta, link_relativo=False)) + "\n"
+            
     conteudo_raiz += STACK_TECNOLOGICO
-
-    # Salva o README principal
+    
     with open('README.md', 'w', encoding='utf-8') as f:
         f.write(conteudo_raiz)
     
-    # Atualiza Sub-Readmes para navegação interna
+    # 2. Gera os READMEs Internos (Dentro de cada pasta)
     for pasta in DEFINICOES.keys():
         if os.path.exists(pasta):
             with open(os.path.join(pasta, "README.md"), 'w', encoding='utf-8') as f:
-                f.write(f"# 📁 /{pasta}\n\n> {DEFINICOES[pasta]}\n\n## 📜 Conteúdo Detectado\n")
-                f.write("\n".join(gerar_lista_arquivos(pasta, True)))
+                f.write(f"# 📁 Módulo: {pasta}\n\n> {DEFINICOES[pasta]}\n\n## 🧰 Ferramentas Disponíveis\n")
+                f.write("\n".join(gerar_lista_arquivos(pasta, link_relativo=True)))
 
-    print("✅ Sucesso! README.md agora reflete a Engenharia e Arquitetura completa.")
+    print("✅ Documentação Viva atualizada com sucesso!")
 
 if __name__ == "__main__":
     main()
