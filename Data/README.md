@@ -15,7 +15,3 @@
 - 📄 **[csv/cotacao_dolar.csv](./csv/cotacao_dolar.csv)** (2026-01-08)
 - 📄 **[input_audio/referencia.m4a](./input_audio/referencia.m4a)** (2026-01-08)
 - 📄 **[input_audio/roteiro.txt](./input_audio/roteiro.txt)** (2026-01-08)
-- 🔊 **[input_audio/referencia.wav](./input_audio/referencia.wav)** (Novo/Local)
-- 🔊 **[output_audio/audio_clonado_final.wav](./output_audio/audio_clonado_final.wav)** (Novo/Local)
-- 🖼️ **[input_images/minha_foto.jpg](./input_images/minha_foto.jpg)** (Novo/Local)
-- 🖼️ **[output_images/perfil_minha_foto.png](./output_images/perfil_minha_foto.png)** (Novo/Local)

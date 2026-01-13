@@ -57,10 +57,6 @@ Este repositório opera através de **Agentes Especializados** e uma infraestrut
 - 📄 **[csv/cotacao_dolar.csv](./Data/csv/cotacao_dolar.csv)** (2026-01-08)
 - 📄 **[input_audio/referencia.m4a](./Data/input_audio/referencia.m4a)** (2026-01-08)
 - 📄 **[input_audio/roteiro.txt](./Data/input_audio/roteiro.txt)** (2026-01-08)
-- 🔊 **[input_audio/referencia.wav](./Data/input_audio/referencia.wav)** (Novo/Local)
-- 🔊 **[output_audio/audio_clonado_final.wav](./Data/output_audio/audio_clonado_final.wav)** (Novo/Local)
-- 🖼️ **[input_images/minha_foto.jpg](./Data/input_images/minha_foto.jpg)** (Novo/Local)
-- 🖼️ **[output_images/perfil_minha_foto.png](./Data/output_images/perfil_minha_foto.png)** (Novo/Local)
 
 ### 📝 /Logs
 > Registro de atividades, histórico de erros e auditoria.
