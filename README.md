@@ -55,8 +55,13 @@ Este repositório opera através de **Agentes Especializados** e uma infraestrut
 - 📂 **[output_audio/ (Estrutura)](./Data/output_audio)**  | *Diretório de Output (Mantido via .gitkeep)*
 - 📂 **[output_images/ (Estrutura)](./Data/output_images)**  | *Diretório de Output (Mantido via .gitkeep)*
 - 📄 **[csv/cotacao_dolar.csv](./Data/csv/cotacao_dolar.csv)** (2026-01-08)
+- 📄 **[csv/produtos_automacao_formulario.csv](./Data/csv/produtos_automacao_formulario.csv)** (Novo/Local)
 - 📄 **[input_audio/referencia.m4a](./Data/input_audio/referencia.m4a)** (2026-01-08)
 - 📄 **[input_audio/roteiro.txt](./Data/input_audio/roteiro.txt)** (2026-01-08)
+- 🖼️ **[input_images/perfil.jpg](./Data/input_images/perfil.jpg)** (Novo/Local)
+- 🖼️ **[output_images/perfil_perfil.png](./Data/output_images/perfil_perfil.png)** (Novo/Local)
+- 🖼️ **[ui_assets/campo_codigo_automatizar_visual.png](./Data/ui_assets/campo_codigo_automatizar_visual.png)** (Novo/Local)
+- 🖼️ **[ui_assets/campo_email_automatizar_visual.png](./Data/ui_assets/campo_email_automatizar_visual.png)** (Novo/Local)
 
 ### 📝 /Logs
 > Registro de atividades, histórico de erros e auditoria.
