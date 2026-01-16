@@ -16,7 +16,7 @@ from pathlib import Path
 DIRS_IGNORADOS = {'.venv', '__pycache__', '.git', '.idea', '.vscode'}
 
 # --- 1. MANIFESTO DO PROJETO ---
-MANIFESTO = """# 🛠️ ToolBox - Ecossistema de Agentes Autônomos
+MANIFESTO = """# 🛠️ Esta é a minha Toolbox (Laboratório) - Ecossistema de Agentes Autônomos
 
 ### 📂 Visão Geral e Arquitetura
 Este repositório opera através de **Agentes Especializados** e uma infraestrutura de dados organizada por tipos e domínios.
@@ -40,7 +40,7 @@ STACK_TECNOLOGICO = """
     - `Requests` & `BeautifulSoup4`: Engenharia de extração e consumo de dados.
 - **Resiliência e Monitoramento:**
     - `Logging (RotatingFileHandler)`: Gestão de logs cíclicos com controle de volumetria.
-    - `Subprocess`: Orquestração de comandos do sistema operacional (Fedora/Linux).
+    - `Subprocess`: Orquestração de comandos do sistema operacional (GNU/Linux Debian).
 - **Arquitetura de Dados:**
     - **Persistência Estruturada:** Armazenamento em CSV (Séries) e JSON (Metadados).
     - **Estratégia de I/O:** Separação rigorosa entre `input_` (Matéria-prima) e `output_` (Processados).
@@ -53,7 +53,8 @@ DEFINICOES = {
     "Agentes_Visao": "Processamento de imagens, filtros e remoção de metadados.",
     "Agentes_Voz": "Conversão de texto em fala (TTS/XTTS) e inteligência auditiva.",
     "Agentes_Monitor": "Monitoramento de integridade web e diagnóstico de hardware/OS.", 
-    "Agentes_Sondagem_Recon": "Ferramentas de análise de alvos, engenharia reversa e descoberta de endpoints.",    
+    "Agentes_Sondagem_Recon": "Ferramentas de análise de alvos, engenharia reversa e descoberta de endpoints.", 
+    "Agentes_Relatorios": "Converte documentos em outros tipos de documentos",       
     "Scripts": "Utilitários de manutenção, backup e automação de infraestrutura.",
     "Config": "Cérebro do projeto (Settings, caminhos absolutos e variáveis).",
     "Data": "Repositório central organizado por subpastas (csv, json, images, audio).",
@@ -66,7 +67,7 @@ MAPA_MODULOS = {
     "Agentes_Voz": "### 🎙️ /Agentes_Voz",
     "Agentes_Monitor": "### 🖥️ /Agentes_Monitor",    
     "Agentes_Sondagem_Recon": "### 🕵️ /Agentes_Sondagem_Recon",
-    
+    "Agentes_Relatorios": "### 🕵️ /Agentes_Relatorios",
     "Scripts": "### 📜 /Scripts",
     "Data": "### 📊 /Data",
     "Logs": "### 📝 /Logs"
