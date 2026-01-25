@@ -1,177 +1,82 @@
-#!/usr/bin/env python3 
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """
-ORQUESTRADOR: main.py
-FUNÇÃO: Gerador de Documentação Viva (Living Documentation).
-DESCRIÇÃO: Varre a estrutura do projeto e atualiza todos os README.md automaticamente.
-STATUS: Operacional - Modo Bibliotecário Sênior 
-"""
-
-import os
-import re
-import subprocess
-from pathlib import Path
-
-# --- CONFIGURAÇÕES DE IGNORAR ---
-# Apenas lixo de sistema e controle de versão. Pastas de output SÃO PERMITIDAS.
-DIRS_IGNORADOS = {'.venv', '__pycache__', '.git', '.idea', '.vscode'}
-
-# --- 1. MANIFESTO DO PROJETO ---
-MANIFESTO = """# 🛠️ Esta é a minha Toolbox (Laboratório) - Ecossistema de Agentes Autônomos
-
-### 📂 Visão Geral e Arquitetura
-Este repositório opera através de **Agentes Especializados** e uma infraestrutura de dados organizada por tipos e domínios.
-
-* **Agentes de Dados:** Inteligência de busca, scraping e coleta de dados.
-* **Agentes de Visao:** Processamento de imagem, higienização e privacidade.
-* **Agentes de Voz:** Síntese vocal (TTS/XTTS) e inteligência auditiva.
-* **Infraestrutura:** Gestão de logs, configurações e persistência de dados.
-
----
+Enzo ToolBox - Orchestrator (Cérebro Central)
+Arquitetura: Modular Monolithic
+Author: Enzo (O Arquiteto)
+System: Debian Linux
 """
 
-# --- 2. STACK TECNOLÓGICO DETALHADO (RESTAURADO) ---
-STACK_TECNOLOGICO = """
----
-### 🛠️ Stack Tecnológico e Engenharia
-- **Core Executivo:** Python 3.10+ & Bash Scripting (Automação de Infraestrutura).
-- **Domínios de Inteligência:**
-    - `Coqui TTS (XTTS v2)`: Clonagem de voz Neural e Síntese de Fala de alta fidelidade.
-    - `Pillow (PIL)`: Pipeline de processamento de imagem e manipulação de metadados.
-    - `Requests` & `BeautifulSoup4`: Engenharia de extração e consumo de dados.
-- **Resiliência e Monitoramento:**
-    - `Logging (RotatingFileHandler)`: Gestão de logs cíclicos com controle de volumetria.
-    - `Subprocess`: Orquestração de comandos do sistema operacional (GNU/Linux Debian).
-- **Arquitetura de Dados:**
-    - **Persistência Estruturada:** Armazenamento em CSV (Séries) e JSON (Metadados).
-    - **Estratégia de I/O:** Separação rigorosa entre `input_` (Matéria-prima) e `output_` (Processados).
-    - **Living Documentation:** Mapeamento dinâmico via `main.py` (incluindo estruturas vazias via `.gitkeep`).
-"""
+import sys
+import time
+import logging
 
-# --- 3. DEFINIÇÕES POR DOMÍNIO ---
-DEFINICOES = {
-    "Agentes_Dados": "Coleta e processamento de notícias e oportunidades (Scraping/RSS).",
-    "Agentes_Visao": "Processamento de imagens, filtros e remoção de metadados.",
-    "Agentes_Voz": "Conversão de texto em fala (TTS/XTTS) e inteligência auditiva.",
-    "Agentes_Monitor": "Monitoramento de integridade web e diagnóstico de hardware/OS.", 
-    "Agentes_Sondagem_Recon": "Ferramentas de análise de alvos, engenharia reversa e descoberta de endpoints.", 
-    "Agentes_Relatorios": "Converte documentos em outros tipos de documentos",       
-    "Scripts": "Utilitários de manutenção, backup e automação de infraestrutura.",
-    "Config": "Cérebro do projeto (Settings, caminhos absolutos e variáveis).",
-    "Data": "Repositório central organizado por subpastas (csv, json, images, audio).",
-    "Logs": "Registro de atividades, histórico de erros e auditoria."
-}
+# [1] Configuração de Logging (A "Caixa Preta" do Avião)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - [KERNEL] - %(levelname)s - %(message)s',
+    handlers=[logging.StreamHandler()] # Joga o log no Terminal
+)
 
-MAPA_MODULOS = {
-    "Agentes_Dados": "### 🛰️ /Agentes_Dados",
-    "Agentes_Visao": "### 👁️ /Agentes_Visao",
-    "Agentes_Voz": "### 🎙️ /Agentes_Voz",
-    "Agentes_Monitor": "### 🖥️ /Agentes_Monitor",    
-    "Agentes_Sondagem_Recon": "### 🕵️ /Agentes_Sondagem_Recon",
-    "Agentes_Relatorios": "### 🕵️ /Agentes_Relatorios",
-    "Scripts": "### 📜 /Scripts",
-    "Data": "### 📊 /Data",
-    "Logs": "### 📝 /Logs"
-}
+def inicializar_motor():
+    """Prepara o ambiente, carrega configs e verifica conexões."""
+    logging.info("Inicializando sistemas... Alocando memória.")
+    # Aqui carregaremos as variáveis de ambiente (.env) futuramente
+    time.sleep(0.5) # Simulação de carga de drivers
+    logging.info("Motor V12 pronto. Aguardando input.")
 
-# --- 4. LÓGICA DE EXTRAÇÃO E AUDITORIA ---
+def processar_comando(comando):
+    """
+    O Router. Decide para qual 'Agente' mandar a tarefa.
+    Não resolve nada, apenas delega.
+    """
+    cmd = comando.lower().strip()
 
-def extrair_docstring(filepath):
-    """Lê o cabeçalho do arquivo para explicar o que ele faz."""
-    try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            conteudo = f.read()
-            if filepath.endswith('.py'):
-                match = re.search(r'"""(.*?)"""', conteudo, re.DOTALL)
-                if match: return f" | *{match.group(1).strip().replace(chr(10), ' ')}*"
-            elif filepath.endswith('.sh'):
-                comentarios = []
-                for l in conteudo.split('\n'):
-                    if l.startswith('#') and '!' not in l:
-                        comentarios.append(l.replace('#', '').strip())
-                if comentarios: return f" | *{' '.join(comentarios[:1])}*"
-    except: pass
-    return ""
-
-def get_git_info(filepath):
-    """Pega a data da última modificação real no Git."""
-    try:
-        cmd = ['git', 'log', '-1', '--format=%cd', '--date=short', filepath]
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        return f"({result.stdout.strip()})" if result.stdout.strip() else "(Novo/Local)"
-    except: return "(Local)"
-
-def gerar_lista_arquivos(pasta_raiz, link_relativo=True):
-    linhas = []
+    if cmd == "exit":
+        logging.info("Desligando motores...")
+        sys.exit(0)
     
-    # Varredura
-    for root, dirs, files in os.walk(pasta_raiz):
-        # Filtra pastas ignoradas
-        dirs[:] = [d for d in dirs if d not in DIRS_IGNORADOS]
+    elif cmd == "help":
+        print("\n--- COMANDOS DISPONÍVEIS ---")
+        print("1. finance  -> Agente de Mercado (Em breve)")
+        print("2. scraper  -> Agente de Coleta (Em breve)")
+        print("3. system   -> Monitoramento Linux")
+        print("----------------------------\n")
+
+    # [Gatilho para Módulos Futuros]
+    elif cmd == "system":
+        logging.info("Chamando módulo System...")
+        # from agents import system_monitor
+        # system_monitor.run()
+        print(">> [MÓDULO SYSTEM]: CPU: 12% | RAM: 1.4GB (Simulado)")
+
+    else:
+        logging.warning(f"Comando desconhecido: {comando}")
+
+def main_loop():
+    """
+    O Loop Infinito (Event Loop).
+    Mantém o processo vivo na CPU aguardando interrupções.
+    """
+    inicializar_motor()
+
+    while True:
+        try:
+            # O cursor piscando é o 'input' bloqueante. 
+            # O processador descansa aqui até você teclar algo.
+            user_input = input("Enzo@ToolBox:~$ ")
+            processar_comando(user_input)
         
-        for f in files:
-            # Regra de Ouro: Ignora ocultos, EXCETO .gitkeep
-            if f.startswith('.') and f != '.gitkeep': continue 
-            if f == 'README.md': continue
-            
-            caminho_completo = os.path.join(root, f)
-            nome_exibicao = os.path.relpath(caminho_completo, pasta_raiz)
-            
-            # Definição de Ícones e Descrições
-            icone = "📄"
-            info_git = get_git_info(caminho_completo)
-            desc = extrair_docstring(caminho_completo)
-            
-            if f == '.gitkeep':
-                icone = "📂"
-                # Remove o nome .gitkeep da exibição para ficar mais limpo
-                pasta_pai = os.path.dirname(nome_exibicao)
-                nome_exibicao = f"{pasta_pai}/ (Estrutura)"
-                desc = " | *Diretório de Output (Mantido via .gitkeep)*"
-            elif f.endswith('.py'): icone = "🐍"
-            elif f.endswith('.sh'): icone = "🐚"
-            elif f.endswith(('.wav', '.mp3')): icone = "🔊"
-            elif f.endswith(('.jpg', '.png')): icone = "🖼️"
-            elif f.endswith('.json'): icone = "⚙️"
-            
-            # Cria o link Markdown
-            prefixo = f"./{pasta_raiz}/" if not link_relativo else "./"
-            # Se for gitkeep, o link aponta para a pasta
-            link = f"{prefixo}{os.path.dirname(os.path.relpath(caminho_completo, pasta_raiz))}" if f == '.gitkeep' else f"{prefixo}{nome_exibicao}"
-            
-            if f == '.gitkeep':
-                 linhas.append(f"- {icone} **[{nome_exibicao}]({link})** {desc}")
-            else:
-                 linhas.append(f"- {icone} **[{nome_exibicao}]({link})** {info_git}{desc}")
+        except KeyboardInterrupt:
+            # Captura o Ctrl+C para sair com elegância, sem crashar.
+            print("\n")
+            logging.info("Interrupção forçada pelo piloto (Ctrl+C).")
+            break
+        except Exception as e:
+            # O Airbag. Se algo explodir, o programa não fecha, ele loga e continua.
+            logging.error(f"Erro Crítico no Loop Principal: {e}")
 
-    return sorted(linhas) if linhas else ["- *Pasta vazia.*"]
-
-# --- 5. EXECUÇÃO ---
-
-def main():
-    print(f"📚 Iniciando Bibliotecário ToolBox em: {os.getcwd()}")
-    
-    # 1. Gera o README.md Principal (Raiz)
-    conteudo_raiz = MANIFESTO
-    
-    for pasta, header in MAPA_MODULOS.items():
-        if os.path.exists(pasta):
-            print(f"   - Indexando: {pasta}...")
-            conteudo_raiz += f"\n{header}\n> {DEFINICOES.get(pasta, '')}\n\n"
-            conteudo_raiz += "\n".join(gerar_lista_arquivos(pasta, link_relativo=False)) + "\n"
-            
-    conteudo_raiz += STACK_TECNOLOGICO
-    
-    with open('README.md', 'w', encoding='utf-8') as f:
-        f.write(conteudo_raiz)
-    
-    # 2. Gera os READMEs Internos (Dentro de cada pasta)
-    for pasta in DEFINICOES.keys():
-        if os.path.exists(pasta):
-            with open(os.path.join(pasta, "README.md"), 'w', encoding='utf-8') as f:
-                f.write(f"# 📁 Módulo: {pasta}\n\n> {DEFINICOES[pasta]}\n\n## 🧰 Estrutura e Ferramentas\n")
-                f.write("\n".join(gerar_lista_arquivos(pasta, link_relativo=True)))
-
-    print("✅ Documentação Viva atualizada (Stack Sênior + Outputs)!")
-
+# [2] A Chave de Ignição Segura
 if __name__ == "__main__":
-    main()
+    main_loop()

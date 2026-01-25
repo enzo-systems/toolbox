@@ -1,5 +1,0 @@
-"""
-NÍVEL 1: Gestor de Ambiente
-FUNÇÃO: Centraliza chaves de API, caminhos de pastas e constantes globais.
-CONCEITOS: Variáveis de Ambiente, Configuração Centralizada.
-"""
