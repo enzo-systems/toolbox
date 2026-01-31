@@ -1,15 +1,31 @@
 # .gitignore
-**/__pycache__/ 
+
+# --- Python ---
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+*$py.class
+
+# --- Ambientes ---
+.env
 .venv/
 env/
+venv/
+
+# --- IDEs ---
 .idea/
 .vscode/
+
+# --- Logs e Dados (Minúsculo conforme criado) ---
 *.log
-.DS_Store
-data/
 logs/
-!data/.gitkeep
+data/
 !logs/.gitkeep
+!data/.gitkeep
+data/*
+!data/.gitkeep
+*.db
+*.sqlite3
+
+# --- Outros Arquivos que não podem subir ---
+data/json/*.json
+data/json/chat_history.json
